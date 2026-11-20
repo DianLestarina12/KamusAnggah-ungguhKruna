@@ -1,0 +1,956 @@
+/* #####################################################################
+ * admin.css  —  KHUSUS HALAMAN ADMIN
+ *
+ *  4a. Tabel admin VERSI LAMA (.table-custom, .btn-edit)
+ *  4b. Tabel admin (.tabel-admin) + sisa lama tombol tambah
+ *  4e. Login admin (dua panel)
+ *  4h. Lupa kata sandi (.kartu-lupa)
+ *  4f. Kepala halaman admin (judul, pencarian, tombol)
+ *  4g. Nomor halaman admin VERSI LAMA (.ad-paginasi)
+ *  4i. Pop up hapus + perbaikan modal berformulir
+ *  4j. Pop up Tambah dan Edit
+ *  4k. Import CSV
+ *
+ * Butuh dasar.css (variabel warna --nav-coklat dkk.), jadi muat dasar.css dulu.
+ * Penomoran bagian mengikuti style.css lama.
+ * ##################################################################### */
+
+
+/* ---------------------------------------------------------------------
+ * 4a. Tabel admin VERSI LAMA (.table-custom) dan tombol .btn-edit
+ * Kemungkinan sudah digantikan .tabel-admin (4b). Cari "table-custom"
+ * dan "btn-edit" di resources/views sebelum menghapusnya.
+ * --------------------------------------------------------------------- */
+.table-custom {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--nav-coklat) !important;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Tombol Edit pada tabel admin */
+.btn-edit {
+    background-color: var(--nav-coklat);    /* #6E491C */
+    border: 1px solid var(--nav-coklat);
+    color: var(--putih);
+    font-weight: 600;
+}
+
+.btn-edit:hover,
+.btn-edit:focus {
+    background-color: var(--nav-coklat-hover);   /* #523614, sedikit lebih gelap */
+    border-color: var(--nav-coklat-hover);
+    color: var(--putih);
+}
+
+.table-custom thead th {
+    background-color: #EDCDA3 !important;
+    color: #000000;
+    border-bottom: 1px solid var(--nav-coklat) !important;
+    border-right: 1px solid var(--nav-coklat) !important;
+    padding: 15px 10px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.table-custom tbody td {
+    border-bottom: 1px solid var(--nav-coklat) !important;
+    border-right: 1px solid var(--nav-coklat) !important;
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table-custom thead th:last-child,
+.table-custom tbody td:last-child {
+    border-right: none !important;
+}
+
+.table-custom tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table-custom tbody tr:nth-child(even) {
+    background-color: #FDF8F0 !important;
+}
+
+.table-custom tbody tr:nth-child(odd) {
+    background-color: #FFFFFF !important;
+}
+
+/* ---------------------------------------------------------------------
+ * 4b. Tabel admin (dipakai Pengelolaan Kata & Pengelolaan Kuis)
+ * Garis dilembutkan; Edit (cokelat) dan Hapus (merah) warnanya tidak berubah.
+ * Di HP, tabel digeser ke samping di dalam pembungkusnya.
+ * --------------------------------------------------------------------- */
+.tabel-admin-wrap {
+    border: 1px solid #D9C7A5;
+    border-radius: 12px;
+    overflow-x: auto;                      /* HP: geser ke samping, halaman tidak ikut melebar */
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+}
+
+.tabel-admin {
+    width: 100%;
+    min-width: 760px;                      /* di bawah ini kolom tidak dipadatkan lagi, tabel digeser */
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.tabel-admin-lebar { min-width: 980px; }   /* tabel soal (teks panjang) */
+
+.tabel-admin thead th {
+    padding: 13px 10px;
+    border: 1px solid #E4D8C0;
+    background: #F0DDBB;
+    color: #2E2012;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Judul kolom yang bisa diurutkan (halaman kata) */
+.tabel-admin thead th a {
+    color: inherit;
+    text-decoration: none;
+}
+.tabel-admin thead th a:hover { text-decoration: underline; }
+
+.tabel-admin tbody td {
+    padding: 11px 10px;
+    border: 1px solid #E4D8C0;
+    background: #fff;
+    color: #5A3A12;
+    font-size: 0.85rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tabel-admin tbody tr:nth-child(even) td { background: #FDF7EC; }
+
+/* Garis luar sudah dibuat oleh pembungkus, jadi garis tepi sel dihapus */
+.tabel-admin tr > :first-child { border-left: 0; }
+.tabel-admin tr > :last-child { border-right: 0; }
+.tabel-admin thead tr th { border-top: 0; }
+.tabel-admin tbody tr:last-child td { border-bottom: 0; }
+
+/* Kolom soal dibuat rata kiri karena teksnya panjang */
+.tabel-admin td.kolom-soal {
+    text-align: left;
+    min-width: 280px;
+}
+
+/* Tombol aksi: berdampingan, bukan bertumpuk */
+.tabel-admin .aksi {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.btn-edit-admin {
+    padding: 5px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #6E491C;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-edit-admin:hover { background: #573814; color: #fff; }
+
+.btn-hapus-admin {
+    padding: 5px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #DC3545;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-hapus-admin:hover { background: #b92c3a; color: #fff; }
+
+/* HP (di bawah 768px): setiap baris tabel menjadi satu kartu, tanpa geser samping.
+   Label kolom diambil dari atribut data-label pada <td> di view. */
+@media (max-width: 767.98px) {
+    .tabel-admin-wrap {
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .tabel-admin,
+    .tabel-admin-lebar { min-width: 0; }
+
+    .tabel-admin,
+    .tabel-admin tbody,
+    .tabel-admin tr,
+    .tabel-admin td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Judul kolom disembunyikan secara visual, tetap terbaca pembaca layar */
+    .tabel-admin thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .tabel-admin tbody tr {
+        margin-bottom: 14px;
+        border: 1px solid #D9C7A5;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .tabel-admin tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 9px 14px;
+        border: 0;
+        border-bottom: 1px solid #E4D8C0;
+        text-align: right;
+        word-break: break-word;
+    }
+
+    /* Label kolom di kiri, isi di kanan */
+    .tabel-admin tbody td::before {
+        content: attr(data-label);
+        flex: none;
+        max-width: 45%;
+        text-align: left;
+        font-weight: 700;
+        color: #2E2012;
+    }
+
+    /* Kolom kosong tidak perlu ditampilkan */
+    .tabel-admin tbody td:empty { display: none; }
+
+    .tabel-admin tbody tr:nth-child(even) td { background: transparent; }
+    .tabel-admin tbody tr:last-child td { border-bottom: 1px solid #E4D8C0; }
+    .tabel-admin tbody tr td:last-child { border-bottom: 0; }
+
+    /* Nomor: menjadi kepala kartu */
+    .tabel-admin tbody tr td[data-label="No"] {
+        background: #F0DDBB;
+        font-weight: 700;
+    }
+
+    /* Soal: teks panjang, label di atas isi */
+    .tabel-admin td.kolom-soal {
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+        text-align: left;
+    }
+
+    /* Aksi: tanpa label, kedua tombol berbagi lebar */
+    .tabel-admin td.kolom-aksi::before { display: none; }
+    .tabel-admin td.kolom-aksi .aksi { width: 100%; }
+    .btn-edit-admin,
+    .btn-hapus-admin {
+        flex: 1;
+        padding: 10px 14px;
+    }
+}
+
+/* Sisa LAMA (tidak dipakai lagi oleh halaman admin yang baru):
+   .header-aksi-admin dan .btn-tambah-admin (tombol oranye). Aman dihapus setelah
+   mencari namanya di resources/views. */
+.header-aksi-admin {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.btn-tambah-admin {
+    display: inline-block;
+    background-color: #F4A259;
+    color: white;
+    border-radius: 6px;
+    width: 160px;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 0;
+    text-decoration: none;
+}
+.btn-tambah-admin:hover {
+    background-color: #e08f46;
+    color: white;
+}
+
+
+/* ---------------------------------------------------------------------
+ * 4e. Login admin (login.blade.php): dua panel
+ * Kiri = panel cokelat berisi nama kamus, kanan = formulir.
+ * Di HP, panel tersusun ke bawah (cokelat di atas, formulir di bawah).
+ * --------------------------------------------------------------------- */
+
+/* Melebar penuh: pembungkus <main class="container my-4"> dari layout dilepas,
+   hanya di halaman yang berisi .login-split */
+.container:has(> .login-split) {
+    max-width: none;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.login-split {
+    display: flex;
+    min-height: calc(100vh - 72px);        /* 72px = tinggi navbar */
+}
+
+.login-merek {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 5rem;
+    background-color: var(--nav-coklat);
+    color: #F7F0E1;
+}
+
+.login-merek-label {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: #E8D3AA;
+}
+
+.login-merek-judul {
+    margin: 0.6rem 0 0;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2.75rem;
+    line-height: 1.12;
+    color: var(--putih);
+}
+
+.login-merek-teks {
+    max-width: 24rem;
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.login-form-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    background-color: #FFFDF8;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-judul {
+    margin: 0 0 1.5rem;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: center;
+    color: #2E2012;
+}
+
+/* Kolom isian. Ukuran huruf 16px supaya iPhone tidak memperbesar halaman saat kolom diketuk. */
+.login-input {
+    display: block;
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background-color: #F4E9D4;
+    color: #2E2012;
+    font-size: 1rem;
+}
+.login-input::placeholder { color: #6B5A45; }
+.login-input:focus {
+    outline: 2px solid var(--nav-coklat);
+    outline-offset: 1px;
+    background-color: var(--putih);
+}
+
+/* Kolom kata sandi dengan ikon mata di kanan */
+.login-sandi {
+    position: relative;
+    margin-top: 0.875rem;
+}
+.login-sandi .login-input { padding-right: 3.25rem; }
+
+.login-mata {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    transform: translateY(-50%);
+    min-width: 44px;                       /* area ketuk nyaman di HP */
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: #6B5A45;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.login-mata:hover { color: var(--nav-coklat); }
+
+.login-lupa {
+    margin: 0.75rem 0 1.5rem;
+    text-align: right;
+    font-size: 0.875rem;
+}
+.login-lupa a {
+    color: var(--nav-coklat);
+    font-weight: 700;
+    text-decoration: none;
+}
+.login-lupa a:hover { text-decoration: underline; }
+
+.login-submit {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--nav-coklat);
+    color: var(--putih);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.login-submit:hover { background-color: var(--nav-coklat-hover); }
+
+.login-error {
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    background-color: #FBE9E7;
+    color: #8A2A1A;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 767.98px) {
+    .login-split { flex-direction: column; min-height: 0; }
+    .login-merek { padding: 2rem 1.5rem; }
+    .login-merek-judul { font-size: 1.75rem; }
+    .login-merek-teks { margin-top: 0.6rem; font-size: 0.95rem; }
+    .login-form-wrap { padding: 2rem 1.25rem 3rem; }
+    .login-judul { font-size: 1.75rem; }
+}
+
+/* ---------------------------------------------------------------------
+ * 4h. Lupa kata sandi admin (.kartu-lupa) dan tautan "Kembali ke login"
+ * --------------------------------------------------------------------- */
+.kartu-lupa {
+    width: 100%;
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 28px 24px;
+}
+
+.kartu-lupa h1,
+.kartu-lupa h4,
+.kartu-lupa .judul {
+    font-size: 1.4rem;
+}
+
+.kartu-lupa p {
+    font-size: 0.95rem;
+}
+
+.kartu-lupa .form-control {
+    font-size: 16px;      /* 16px mencegah iPhone melakukan zoom otomatis saat input diklik */
+    padding: 10px 12px;
+}
+
+.kartu-lupa .btn,
+.kartu-lupa button[type="submit"] {
+    width: 100%;
+    padding: 11px;
+    font-size: 1rem;
+}
+
+/* ===== Link "Kembali ke login" ===== */
+.link-kembali-login {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6E491C !important;
+    text-decoration: none;
+}
+
+.link-kembali-login:hover {
+    color: #583a16;
+    text-decoration: none;
+}
+
+@media (max-width: 576px) {
+    .kartu-lupa {
+        margin: 24px 16px;
+        width: auto;
+    }
+}
+
+/* ---------------------------------------------------------------------
+ * 4f. Kepala halaman admin (Pengelolaan Kata dan Pengelolaan Kuis)
+ * Judul di kiri, pencarian dan tombol di kanan. Di HP tersusun ke bawah.
+ * --------------------------------------------------------------------- */
+.ad-kepala {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ad-label {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--nav-coklat);
+}
+
+.ad-judul {
+    margin: 0.35rem 0 0;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.2;
+    color: #2E2012;
+}
+
+.ad-aksi {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.625rem;
+}
+
+/* Kotak pencarian */
+.ad-cari {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.ad-cari-kolom { position: relative; }
+
+.ad-cari-kolom input {
+    width: 240px;
+    padding: 0.55rem 2.25rem 0.55rem 0.75rem;
+    border: 1.5px solid #D9C7A5;
+    border-radius: 8px;
+    background: #fff;
+    color: #2E2012;
+    font-size: 0.85rem;
+}
+.ad-cari-kolom input:focus {
+    outline: 2px solid var(--nav-coklat);
+    outline-offset: 1px;
+}
+
+.ad-cari-kolom i {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    color: #6B5A45;
+    pointer-events: none;
+}
+
+.ad-baris-tombol {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Tombol: utama (cokelat), garis (berbingkai), lembut (krem keemasan) */
+.ad-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ad-btn-utama {
+    background-color: var(--nav-coklat);
+    border-color: var(--nav-coklat);
+    color: var(--putih);
+}
+.ad-btn-utama:hover {
+    background-color: var(--nav-coklat-hover);
+    border-color: var(--nav-coklat-hover);
+    color: var(--putih);
+}
+
+.ad-btn-garis {
+    background-color: transparent;
+    border-color: var(--nav-coklat);
+    color: var(--nav-coklat);
+}
+.ad-btn-garis:hover {
+    background-color: var(--nav-coklat);
+    color: var(--putih);
+}
+
+.ad-btn-lembut {
+    background-color: #EDCFA3;
+    border-color: #EDCFA3;
+    color: #47290F;
+}
+.ad-btn-lembut:hover {
+    background-color: #E3C08C;
+    border-color: #E3C08C;
+    color: #47290F;
+}
+
+@media (max-width: 767.98px) {
+    .ad-kepala { flex-direction: column; align-items: stretch; gap: 1rem; }
+    .ad-judul { font-size: 1.6rem; }
+
+    .ad-aksi { align-items: stretch; }
+
+    .ad-cari { width: 100%; }
+    .ad-cari-kolom { flex: 1; min-width: 0; }
+    .ad-cari-kolom input { width: 100%; font-size: 1rem; }   /* 16px: iPhone tidak memperbesar halaman */
+
+    .ad-baris-tombol .ad-btn { flex: 1; padding: 0.7rem 0.75rem; }
+}
+
+/* ---------------------------------------------------------------------
+ * 4g. Nomor halaman tabel admin VERSI LAMA (partials/paginasi-admin.blade.php)
+ * Kemungkinan sudah digantikan .paginasi di dasar.css (bagian 14).
+ * Cari "ad-paginasi" di resources/views; kalau tidak ada, blok ini aman dihapus.
+ * --------------------------------------------------------------------- */
+.ad-paginasi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+}
+
+.ad-paginasi-info {
+    font-size: 0.85rem;
+    color: #5A4630;
+}
+
+.ad-paginasi-daftar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ad-paginasi-item {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #D9C7A5;
+    border-radius: 6px;
+    background-color: var(--putih);
+    color: var(--nav-coklat);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a.ad-paginasi-item:hover { background-color: #F7F0E1; }
+
+.ad-paginasi-item.aktif {
+    background-color: var(--nav-coklat);
+    border-color: var(--nav-coklat);
+    color: var(--putih);
+}
+
+.ad-paginasi-item.mati {
+    color: #B8A88A;
+    pointer-events: none;
+}
+
+/* HP: keterangan dan nomor halaman rata tengah, tombol sedikit lebih besar */
+@media (max-width: 575.98px) {
+    .ad-paginasi { flex-direction: column; justify-content: center; text-align: center; }
+    .ad-paginasi-daftar { justify-content: center; }
+    .ad-paginasi-item { min-width: 38px; height: 38px; }
+}
+
+
+/* ---------------------------------------------------------------------
+ * 4i. Pop up hapus (kata dan soal) + perbaikan modal berformulir
+ * --------------------------------------------------------------------- */
+
+/* Modal dengan form di dalam content: form harus ikut membatasi tinggi,
+   supaya hanya modal-body yang bisa digulir */
+.modal-dialog-scrollable .modal-content > form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.modal-dialog-scrollable .modal-content > form .modal-body {
+    overflow-y: auto;
+}
+
+.modal-hapus .hapus-teks span {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* ===== Pop up konfirmasi hapus (kata dan soal) ===== */
+.modal-hapus .modal-content {
+    border: none;
+    border-radius: 14px;
+    padding: 10px 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-hapus .modal-body {
+    padding: 22px 24px 20px;
+    text-align: center;
+}
+
+.modal-hapus .hapus-teks {
+    margin: 0 0 22px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #2b1d0e;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.modal-hapus .hapus-aksi {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.modal-hapus .btn-hapus-ya,
+.modal-hapus .btn-hapus-batal {
+    min-width: 110px;
+    padding: 9px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+/* Hapus: merah, di kiri */
+.modal-hapus .btn-hapus-ya {
+    background-color: #c62828;
+}
+.modal-hapus .btn-hapus-ya:hover {
+    background-color: #a71f1f;
+}
+
+/* Batal: cokelat tema, di kanan */
+.modal-hapus .btn-hapus-batal {
+    background-color: #6E491C;
+}
+.modal-hapus .btn-hapus-batal:hover {
+    background-color: #583a16;
+}
+
+.modal-hapus .btn-hapus-ya:active,
+.modal-hapus .btn-hapus-batal:active {
+    transform: scale(0.97);
+}
+
+.modal-hapus .btn-hapus-ya:focus-visible,
+.modal-hapus .btn-hapus-batal:focus-visible {
+    outline: 3px solid rgba(110, 73, 28, 0.35);
+    outline-offset: 2px;
+}
+
+/* Perkecil kotak pop up hapus */
+.modal-hapus .modal-dialog {
+    max-width: 380px;
+}
+
+.modal-hapus .modal-content {
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.modal-hapus .modal-body {
+    padding: 18px 20px 16px;
+}
+
+.modal-hapus .hapus-teks {
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+.modal-hapus .btn-hapus-ya,
+.modal-hapus .btn-hapus-batal {
+    min-width: 90px;
+    padding: 7px 18px;
+    font-size: 0.9rem;
+}
+
+
+/* ---------------------------------------------------------------------
+ * 4j. Modal Tambah dan Edit (polos, border cokelat)
+ * --------------------------------------------------------------------- */
+.modal-tambah-kata .modal-content {
+    background-color: #FFFFFF;
+    border: 2px solid #6E491C;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal-tambah-kata .modal-header {
+    background-color: transparent;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 14px 20px;
+}
+
+.modal-tambah-kata .modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2b1d0e;
+}
+
+.modal-tambah-kata .modal-body {
+    padding: 18px 22px 8px;
+}
+
+.modal-tambah-kata .form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2b1d0e;
+    margin-bottom: 4px;
+}
+
+.modal-tambah-kata .form-control {
+    border: 1px solid #CFCFCF;
+    border-radius: 8px;
+}
+
+.modal-tambah-kata .form-control:focus {
+    border-color: #6E491C;
+    box-shadow: 0 0 0 3px rgba(110, 73, 28, 0.15);
+}
+
+.modal-tambah-kata .modal-footer {
+    background-color: transparent;
+    border-top: 1px solid #E5E5E5;
+    padding: 12px 20px;
+    gap: 8px;
+}
+
+/* Simpan: cokelat */
+.modal-tambah-kata .btn-simpan {
+    background-color: #6E491C;
+    border: 1px solid #6E491C;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 7px 20px;
+}
+.modal-tambah-kata .btn-simpan:hover {
+    background-color: #583a16;
+    border-color: #583a16;
+    color: #fff;
+}
+
+/* Batal: merah */
+.modal-tambah-kata .btn-batal {
+    background-color: #c62828;
+    border: 1px solid #c62828;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 7px 20px;
+}
+.modal-tambah-kata .btn-batal:hover {
+    background-color: #a71f1f;
+    border-color: #a71f1f;
+    color: #fff;
+}
+
+
+/* ---------------------------------------------------------------------
+ * 4k. Import CSV (kata/import.blade.php)
+ * --------------------------------------------------------------------- */
+.import-wrap { max-width: 760px; margin: 2rem auto; }
+
+.import-card {
+    background: #fff;
+    border: 1px solid #e6dccb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.import-head {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e6dccb;
+    background: #faf6ee;
+}
+.import-head h1 { font-size: 1.5rem; font-weight: 700; margin: 0; color: #3b2a14; }
+
+.import-body { padding: 1.5rem; }
+
+.format-box {
+    background: #faf6ee;
+    border: 1px solid #e6dccb;
+    border-left: 4px solid #6E491C;
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    overflow-x: auto;
+}
+.format-box code { color: #6E491C; white-space: nowrap; font-size: .9rem; }
+
+.import-note { color: #5a4a35; font-size: .95rem; }
+
+.btn-import-admin {
+    background: #6E491C; color: #fff; border: 0;
+    padding: .5rem 1.5rem; border-radius: 8px;
+}
+.btn-import-admin:hover { background: #5a3b16; color: #fff; }
+
+.btn-kembali-admin {
+    background: #fff; color: #6E491C; border: 1px solid #6E491C;
+    padding: .5rem 1.25rem; border-radius: 8px; text-decoration: none;
+}
+.btn-kembali-admin:hover { background: #faf6ee; color: #6E491C; }

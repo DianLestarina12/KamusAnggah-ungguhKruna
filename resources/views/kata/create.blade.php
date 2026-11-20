@@ -1,0 +1,14 @@
+@extends('template')
+@section('content')
+    <form action="{{ route('admin.kata.store') }}" method="POST">
+        @csrf
+        <input type="text" name="kruna_andap" placeholder="Masukkan Kruna Andap">
+        <input type="text" name="kruna_asi" placeholder="Masukkan Kruna Alus Singgih">
+        <input type="text" name="kruna_aso" placeholder="Masukkan Kruna Alus Sor">
+        <input type="text" name="kruna_ami" placeholder="Masukkan Kruna Alus Mider">
+        <input type="text" name="kruna_mider" placeholder="Masukkan Kruna Mider">
+        <input type="text" name="kruna_kasar" placeholder="Masukkan Kruna Kasar">
+        <input type="text" name="bahasa_indonesia" placeholder="Masukkan Bahasa Indonesia">
+        <button type="submit">Submit</button> 
+    </form>
+@endsection

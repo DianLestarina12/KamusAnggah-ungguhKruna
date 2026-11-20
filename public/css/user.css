@@ -1,0 +1,1609 @@
+/* #####################################################################
+ * user.css  —  KHUSUS HALAMAN PENGUNJUNG (pengguna)
+ *
+ *  5. Komponen pencarian ........ <x-cari-kata> (beranda, hasil, detail)
+ *  6. Beranda ................... kamus/beranda.blade.php + kamus/abjad.blade.php
+ *  7. Daftar kata per huruf ..... kamus/huruf.blade.php
+ *  8. Hasil pencarian ........... kamus/hasil.blade.php
+ *  9. Detail kata ............... kamus/detail.blade.php
+ * 10. Kuis ...................... halaman Kuis
+ * 11. Anggah-Ungguhing Basa ..... materi/index.blade.php
+ * 12. Tentang ................... tentang/penulis.blade.php + tentang/aplikasi.blade.php
+ * 13. Sisa beranda lama ......... tidak dipakai lagi (cek dulu sebelum dihapus)
+ *
+ * Butuh dasar.css (variabel warna dan nomor halaman), jadi muat dasar.css dulu.
+ * Penomoran bagian mengikuti style.css lama, sehingga rujukan seperti
+ * "bagian 5" atau "bagian 12" di komentar tetap benar.
+ * ##################################################################### */
+
+
+/* #####################################################################
+ * 5. KOMPONEN PENCARIAN
+ * Dipakai di: <x-cari-kata> (beranda, hasil pencarian, detail kata)
+ * Di beranda, gaya ini ditimpa oleh bagian 6 (.bk-cari ...).
+ * ##################################################################### */
+.btn-cari,
+.btn-selanjutnya {
+    background-color: var(--user-coklat);
+    border-color: var(--user-coklat);
+    color: var(--putih);
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.btn-cari:hover,
+.btn-selanjutnya:hover {
+    background-color: var(--user-coklat-tua);
+    border-color: var(--user-coklat-tua);
+    color: var(--putih);
+}
+
+.form-cari {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.input-cari {
+    position: relative;
+    flex: 1 1 auto;
+    max-width: 640px;
+}
+
+.input-cari input {
+    width: 100%;
+    padding: 0.6rem 2.5rem 0.6rem 0.9rem;
+    border: 1px solid #cfc6b3;
+    border-radius: 6px;
+    background-color: #f7f4ee;
+    color: var(--teks);
+}
+
+.input-cari input:focus {
+    outline: 2px solid var(--user-oranye);
+    outline-offset: 1px;
+    background-color: var(--putih);
+}
+
+.input-cari i {
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8a7a5c;
+    pointer-events: none;
+}
+
+
+/* #####################################################################
+ * 6. BERANDA
+ * Dipakai di: kamus/beranda.blade.php (hero + kolom cari)
+ *             kamus/abjad.blade.php (strip abjad; juga dipakai di kamus/huruf.blade.php)
+ * ##################################################################### */
+
+/* ---------------------------------------------------------------------
+ * 6a. Hero cokelat
+ * --------------------------------------------------------------------- */
+.bk-hero {
+    background-color: var(--nav-coklat);
+    color: #F7F0E1;
+}
+.bk-hero-inner { padding-top: 4rem; padding-bottom: 4rem; }
+
+/* Hero dan strip abjad melebar penuh (kiri, kanan, dan atas).
+   Container pembungkus dari layout dilepas, tetapi hanya di halaman yang
+   berisi hero atau strip abjad (beranda dan daftar kata per huruf).
+   !important dipakai karena class bawaan Bootstrap seperti py-4 dan mt-4
+   juga memakai !important. */
+.container:has(> .bk-hero),
+.container:has(> .bk-abjad),
+.container-fluid:has(> .bk-hero),
+.container-fluid:has(> .bk-abjad) {
+    max-width: none;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.bk-eyebrow {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #E8D3AA;
+}
+.bk-title {
+    margin: 0.6rem 0 0.9rem;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 1.12;
+    color: var(--putih);
+}
+.bk-sub {
+    max-width: 32rem;
+    margin: 0 0 1.75rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------------
+ * 6b. Kolom cari di dalam hero
+ * Kotak krem pembungkus <x-cari-kata>. Menimpa .form-cari, .input-cari,
+ * dan .btn-cari (bagian 5) hanya di dalam hero.
+ * --------------------------------------------------------------------- */
+.bk-cari {
+    max-width: 640px;
+    padding: 0.5rem;
+    border-radius: 12px;
+    background-color: #F7F0E1;
+}
+.bk-cari .form-cari { gap: 0.5rem; }
+.bk-cari .input-cari { max-width: none; min-width: 0; }   /* min-width 0: kolom cari bisa mengecil di HP */
+.bk-cari .input-cari input {
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+    border: 0;
+    background-color: transparent;
+}
+.bk-cari .input-cari input:focus { background-color: var(--putih); }
+.bk-cari .btn-cari {
+    padding: 0.75rem 1.7rem;
+    background-color: #3B2610;
+    border-color: #3B2610;
+}
+.bk-cari .btn-cari:hover {
+    background-color: #2A1A09;
+    border-color: #2A1A09;
+}
+
+/* ---------------------------------------------------------------------
+ * 6c. Strip abjad (kotak huruf A-Z)
+ * --------------------------------------------------------------------- */
+.bk-abjad {
+    background-color: #F7F0E1;
+    border-bottom: 1px solid var(--garis-detail);
+    padding: 1rem 0;
+}
+.bk-huruf-grid {
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);   /* 26 huruf sebaris di layar lebar */
+    gap: 6px;
+}
+.bk-huruf {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #D9C7A5;
+    border-radius: 8px;
+    background-color: var(--putih);
+    color: var(--nav-coklat);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.bk-huruf:hover,
+.bk-huruf.active,
+.bk-huruf.active:hover {
+    background-color: var(--nav-coklat);
+    border-color: var(--nav-coklat);
+    color: var(--putih);
+}
+
+/* ---------------------------------------------------------------------
+ * 6d. Layar sedang dan kecil (beranda)
+ * --------------------------------------------------------------------- */
+@media (max-width: 1199.98px) {
+    .bk-huruf-grid { grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); }
+    .bk-huruf { aspect-ratio: auto; height: 40px; }
+}
+@media (max-width: 767.98px) {
+    .bk-hero-inner { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .bk-title { font-size: 2.2rem; }
+    .bk-sub { font-size: 1rem; margin-bottom: 1.5rem; }
+    .bk-cari .btn-cari { padding: 0.75rem 1.1rem; }
+}
+
+/* HP: kotak huruf sedikit lebih kecil agar muat 8 per baris */
+@media (max-width: 575.98px) {
+    .bk-title { font-size: 1.9rem; }
+    .bk-abjad { padding: 0.75rem 0; }
+    .bk-huruf-grid { grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap: 5px; }
+    .bk-huruf { height: 36px; }
+}
+
+
+/* #####################################################################
+ * 7. DAFTAR KATA PER HURUF
+ * Dipakai di: kamus/huruf.blade.php (dibuka dari strip abjad di beranda)
+ * Pembungkus halaman memakai .ta-wrap dan .ta-card dari bagian 12.
+ * ##################################################################### */
+.bh-list { border-top: 1px solid var(--garis-detail-tipis); }
+
+.bh-baris {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid var(--garis-detail-tipis);
+    color: inherit;
+    text-decoration: none;
+}
+.bh-baris:hover { background-color: rgba(255, 255, 255, 0.45); }
+
+.bh-baris-isi {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;               /* teks panjang boleh turun baris, tidak mendorong badge */
+}
+.bh-kata-kata { font-size: 1.05rem; font-weight: 700; }
+.bh-kata-arti { font-size: 0.9rem; color: #5A4630; }
+.bh-baris:hover .bh-kata-kata { color: var(--nav-coklat); }
+
+/* Nomor halaman (kamus/paginasi.blade.php), 20 kata per halaman */
+.bh-paginasi { margin-top: 1.5rem; }
+.bh-paginasi .pagination {
+    flex-wrap: wrap;            /* di HP, nomor halaman turun baris */
+    justify-content: center;
+    margin: 0;
+    --bs-pagination-color: var(--nav-coklat);
+    --bs-pagination-border-color: #D9C7A5;
+    --bs-pagination-hover-color: var(--putih);
+    --bs-pagination-hover-bg: var(--nav-coklat);
+    --bs-pagination-hover-border-color: var(--nav-coklat);
+    --bs-pagination-focus-color: var(--nav-coklat);
+    --bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(110, 73, 28, 0.25);
+    --bs-pagination-active-bg: var(--nav-coklat);
+    --bs-pagination-active-border-color: var(--nav-coklat);
+}
+
+
+/* #####################################################################
+ * 8. HASIL PENCARIAN
+ * Dipakai di: kamus/hasil.blade.php
+ * ##################################################################### */
+.hasil-judul {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+.hasil-huruf {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 1.25rem 0 0.6rem;
+}
+
+.hasil-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 0.85rem;
+    background-color: var(--user-krem);
+    border-radius: 10px;
+    color: var(--teks);
+    text-decoration: none;
+    transition: background-color 0.15s;
+}
+
+.hasil-item:hover {
+    background-color: #d4cbb8;
+    color: var(--teks);
+}
+
+.hasil-bentuk {
+    font-size: 1.1rem;
+}
+
+.hasil-bentuk strong {
+    font-weight: 800;
+}
+
+.hasil-arti {
+    font-size: 0.95rem;
+    color: #6b5a45;
+}
+
+.hasil-arti strong {
+    font-weight: 700;
+}
+
+.badge-tingkatan {
+    flex-shrink: 0;
+    padding: 0.3rem 1.1rem;
+    background-color: var(--user-oranye);
+    color: var(--putih);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 999px;
+}
+
+.hasil-kosong {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.hasil-kosong i {
+    font-size: 2rem;
+    color: var(--user-taupe);
+}
+
+
+/* #####################################################################
+ * 9. DETAIL KATA
+ * Dipakai di: kamus/detail.blade.php
+ * ##################################################################### */
+.detail-kepala {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.detail-kata {
+    font-family: 'Libre Baskerville', serif; /* sama dengan brand navbar */
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.detail-arti {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.detail-kepala .form-cari {
+    flex: 0 1 460px;
+}
+
+/* ---------- Tabel anggah-ungguh ---------- */
+.tabel-anggah {
+    border: 1px solid var(--garis-detail);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--user-persik);
+}
+
+.tabel-anggah-kepala,
+.tabel-anggah-baris {
+    display: grid;
+    grid-template-columns: minmax(150px, 210px) 1fr;
+    border-left: 6px solid transparent;
+}
+
+.tabel-anggah-kepala {
+    background-color: #fdeed6;
+    color: var(--coklat);
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.tabel-anggah-kepala > span {
+    padding: 0.6rem 1rem;
+}
+
+.tabel-anggah-kepala > span:first-child {
+    border-right: 1px solid var(--garis-detail); /* sekat vertikal */
+}
+
+.tabel-anggah-baris {
+    border-top: 1px solid var(--garis-detail-tipis);
+}
+
+.tabel-anggah-label {
+    padding: 0.7rem 1rem;
+    border-right: 1px solid var(--garis-detail); /* sekat vertikal */
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tabel-anggah-nilai {
+    padding: 0.7rem 1rem;
+}
+
+.tabel-anggah-nilai.kosong {
+    color: #8a6f58;
+    font-style: italic;
+}
+
+/* Strip warna tangga tingkat tutur (tua ke muda) */
+.tingkat-1 { border-left-color: #6b4423; }
+.tingkat-2 { border-left-color: #8a5e3a; }
+.tingkat-3 { border-left-color: #a9784f; }
+.tingkat-4 { border-left-color: #c49468; }
+.tingkat-5 { border-left-color: #d9ae84; }
+.tingkat-6 { border-left-color: #e8c9a5; }
+.tingkat-indonesia { border-left-color: #fdeed6; }
+
+/* Baris kata yang dicari */
+.tabel-anggah-baris.aktif {
+    background-color: var(--nav-coklat); /* #6E491C */
+    color: var(--putih);
+    font-weight: 700;
+    border-left-color: var(--coklat-tua);
+}
+
+.tabel-anggah-baris.aktif .tabel-anggah-label {
+    font-weight: 700;
+    border-right-color: rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- Kaki halaman detail + kotak relasi (sinonim, homonim) ---------- */
+.detail-kaki {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.kotak-relasi-grup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    align-items: start; /* tiap kotak setinggi isinya sendiri */
+}
+
+.kotak-relasi {
+    border: 1px solid var(--garis-detail);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--user-persik);
+}
+
+.kotak-relasi-judul {
+    margin: 0;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--coklat);
+    background-color: #fdeed6;
+}
+
+.kotak-relasi-baris {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 2fr;
+    border-top: 1px solid var(--garis-detail-tipis);
+    color: inherit;
+    text-decoration: none;
+}
+
+.kotak-relasi-baris:hover {
+    background-color: var(--user-persik-tua);
+    color: inherit;
+}
+
+.kotak-relasi-kata {
+    padding: 0.7rem 1rem;
+    border-right: 1px solid var(--garis-detail);
+    font-weight: 600;
+}
+
+.kotak-relasi-tingkatan {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #8a5e3a;
+}
+
+.kotak-relasi-arti {
+    padding: 0.7rem 1rem;
+}
+
+.kotak-relasi-kosong {
+    margin: 0;
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--garis-detail-tipis);
+    color: #8a6f58;
+    font-style: italic;
+}
+
+/* ---------- Tombol Sebelumnya / Selanjutnya ---------- */
+.btn-navigasi {
+    display: inline-block;      /* tombol berupa <a>, bukan <button> */
+    padding: 0.6rem 2rem;
+    background-color: var(--nav-coklat); /* #6E491C */
+    border: 0;
+    border-radius: 6px;
+    color: var(--putih);
+    font-weight: 600;
+    text-decoration: none;      /* tanpa garis bawah */
+}
+
+.btn-navigasi:hover,
+.btn-navigasi:focus,
+.btn-navigasi:active {
+    background-color: var(--nav-coklat-hover);
+    color: var(--putih);
+    text-decoration: none;
+}
+
+/* Tautan kembali di atas kata yang dicari */
+.detail-kembali {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--nav-coklat);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;      /* tanpa garis bawah */
+}
+.detail-kembali:hover {
+    color: var(--nav-coklat-hover);
+    text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------
+ * CATATAN (milikmu, tidak diubah): blok bersarang di bawah ini TIDAK AKTIF
+ * karena elemen .form-cari, .hero-kamus, dan .tabel-anggah-baris tidak
+ * pernah berada di dalam .tabel-anggah-baris. Dugaan saya, dulunya ini
+ * berada di dalam @media (max-width: ...) { } untuk tampilan HP.
+ * Kita bereskan saat merapikan tampilan HP.
+ * --------------------------------------------------------------------- */
+.tabel-anggah-baris {
+    .form-cari {
+        flex-wrap: nowrap;
+    }
+
+    .hero-kamus {
+        padding: 3rem 0;
+    }
+
+    .tabel-anggah-baris {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* #####################################################################
+ * 10. Kuis
+ * Dipakai di: halaman Kuis (pembuka, soal, dan hasil)
+ * ##################################################################### */
+.btn-kuis {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--user-coklat);
+    border: 1px solid var(--user-coklat);
+    color: var(--putih);
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.btn-kuis:hover {
+    background-color: var(--user-coklat-tua);
+    border-color: var(--user-coklat-tua);
+    color: var(--putih);
+}
+
+/* ---------- Halaman pembuka ---------- */
+.kuis-pembuka {
+    max-width: 520px;
+    margin: 6rem auto;
+    color: var(--user-coklat-tua);
+}
+
+.kuis-pembuka-teks {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* ---------- Halaman pembuka BARU (satu kartu) ---------- */
+.kuis-wrap {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+}
+
+/* Dua class (.ta-card.kuis-intro) supaya mengalahkan .ta-card di bagian 12
+   (yang ditulis lebih bawah dan sebelumnya menimpa padding dan warna di sini). */
+.ta-card.kuis-intro {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2.75rem 3rem;
+    text-align: center;
+    background-color: #FFFDF8;   /* kartu krem terang, sesuai desain */
+    border-color: #E4D8C0;
+}
+
+/* Latar halaman pembuka kuis: krem tua, sesuai desain (halaman lain tidak berubah) */
+body:has(.kuis-intro) {
+    background-color: #EFE6D2;
+}
+
+.kuis-intro-judul {
+    margin: 0 0 1rem;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    color: #2E2012;
+}
+
+.kuis-intro-teks {
+    max-width: 34rem;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    color: #5A4630;
+}
+
+.kuis-intro-btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--nav-coklat);
+    color: var(--putih);
+    font-weight: 700;
+    text-decoration: none;      /* tanpa garis bawah */
+    cursor: pointer;
+}
+
+.kuis-intro-btn:hover,
+.kuis-intro-btn:focus {
+    background-color: var(--nav-coklat-hover);
+    color: var(--putih);
+    text-decoration: none;
+}
+
+@media (max-width: 575.98px) {
+    .ta-card.kuis-intro { padding: 1.75rem 1.25rem; }
+    .kuis-wrap { padding-top: 1.5rem; padding-bottom: 2rem; }
+    .kuis-intro { padding: 1.75rem 1.25rem; }
+    .kuis-intro-judul { font-size: 1.75rem; }                                   /* 28px */
+    .kuis-intro-teks { font-size: 1rem; line-height: 1.65; margin-bottom: 1.5rem; }   /* 16px, nyaman dibaca */
+    .kuis-intro form { margin: 0; }
+    .kuis-intro-btn {
+        display: block;
+        width: 100%;              /* tanpa width, tombol block menyusut dan menempel di kiri */
+        padding: 0.9rem 1rem;
+        text-align: center;
+    }
+}
+
+/* HP sangat kecil (di bawah 360px) */
+@media (max-width: 359.98px) {
+    .ta-card.kuis-intro { padding: 1.5rem 1rem; }
+    .kuis-intro { padding: 1.5rem 1rem; }
+    .kuis-intro-judul { font-size: 1.5rem; }
+}
+
+
+/* ---------- Kotak soal ---------- */
+.kuis-kotak {
+    max-width: 760px;
+    margin: 2.5rem auto;
+    padding: 2rem;
+    background-color: #FFFDF8;
+    border: 1px solid #E4D8C0;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(110, 73, 28, 0.12);
+}
+
+/* Satu soal tampil pada satu waktu (diatur JavaScript lewat class .aktif) */
+.kuis-soal {
+    display: none;
+}
+
+.kuis-soal.aktif {
+    display: block;
+}
+
+/* "Soal 1 dari 10" */
+.kuis-nomor {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;          /* 14px */
+    color: #5A4630;
+}
+
+/* Pertanyaan: satu-satunya blok gelap, supaya paling menonjol */
+.kuis-pertanyaan {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #6E491C;
+    color: var(--putih);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.kuis-pilihan-daftar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;                /* 10px */
+}
+
+/* Pilihan jawaban: putih berbingkai tipis */
+.kuis-pilihan {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #D9C7A5;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    color: #2E2012;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.kuis-pilihan:hover {
+    background-color: #FBF3E2;
+    border-color: #C4A484;
+}
+
+/* Pilihan yang dipilih (class .dipilih diberikan oleh JavaScript) */
+.kuis-pilihan.dipilih,
+.kuis-pilihan.dipilih:hover {
+    background-color: #F4E7CE;
+    border-color: #6E491C;
+    box-shadow: inset 0 0 0 0.5px #6E491C;   /* total garis 2px tanpa menggeser isi */
+    color: #2E2012;
+    font-weight: 700;
+}
+
+/* Radio asli disembunyikan; fokus keyboard ditandai di seluruh pilihan */
+.kuis-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.kuis-pilihan:has(.kuis-radio:focus-visible) {
+    outline: 2px solid #6E491C;
+    outline-offset: 2px;
+}
+
+/* Huruf A, B, C, D */
+.kuis-huruf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.75rem;            /* 28px */
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: #6E491C;
+    color: var(--putih);
+    font-size: 0.8125rem;         /* 13px */
+    font-weight: 700;
+}
+
+/* Tombol Sebelumnya, Selanjutnya, dan Selesai */
+.kuis-navigasi {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.btn-selanjutnya-kuis {
+    min-width: 130px;
+    padding: 0.75rem 1.75rem;
+    background-color: #6E491C;
+    border-color: #6E491C;
+    border-radius: 8px;
+    color: var(--putih);
+    font-size: 0.9375rem;         /* 15px */
+    font-weight: 700;
+}
+
+.btn-selanjutnya-kuis:hover,
+.btn-selanjutnya-kuis:focus {
+    background-color: var(--nav-coklat-hover);
+    border-color: var(--nav-coklat-hover);
+    color: var(--putih);
+}
+
+/* Sebelumnya: tombol sekunder (berbingkai) supaya Selanjutnya tetap yang utama.
+   Hapus blok ini bila kedua tombol ingin sama-sama terisi. */
+#kuis-sebelumnya {
+    background-color: transparent;
+    border-color: #6E491C;
+    color: #6E491C;
+}
+
+#kuis-sebelumnya:hover,
+#kuis-sebelumnya:focus {
+    background-color: #6E491C;
+    border-color: #6E491C;
+    color: var(--putih);
+}
+
+/* HP: kartu lebih rapat, teks 15px, tombol navigasi selebar kartu */
+@media (max-width: 575.98px) {
+    .kuis-kotak {
+        padding: 1.25rem;
+        margin: 1rem 0;
+        border-radius: 12px;
+    }
+
+    .kuis-pertanyaan { padding: 0.875rem; font-size: 0.95rem; }
+    .kuis-pilihan { padding: 0.7rem 0.85rem; font-size: 0.95rem; }
+    .kuis-huruf { flex-basis: 1.625rem; height: 1.625rem; }
+    .kuis-navigasi .btn-selanjutnya-kuis { width: 100%; }
+}
+
+/* ---------- Halaman hasil kuis ---------- */
+.kuis-kotak.kuis-hasil {
+    padding: 3rem 2rem;
+    color: #2E2012;
+}
+
+.kuis-hasil-judul {
+    margin-bottom: 0.25rem;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.kuis-hasil-sub {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #5A4630;
+}
+
+/* Tiga kotak angka: Skor, Benar, Salah */
+.kuis-statistik {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 140px));
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.kuis-statistik-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #FFFFFF;
+    border: 1.5px solid #D9C7A5;
+    border-radius: 8px;
+}
+
+.kuis-statistik-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5A4630;
+}
+
+.kuis-statistik-nilai {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Skor: kotak pertama dibuat gelap supaya menjadi pusat perhatian */
+.kuis-statistik-item:first-child {
+    background-color: #6E491C;
+    border-color: #6E491C;
+    color: var(--putih);
+}
+
+.kuis-statistik-item:first-child .kuis-statistik-label {
+    color: #E8D3AA;
+}
+
+/* Tombol Ulangi (utama, terisi) dan Beranda (sekunder, berbingkai) */
+.kuis-hasil-aksi {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.kuis-hasil-aksi form {
+    margin: 0;
+}
+
+.kuis-hasil-aksi .btn-selanjutnya-kuis {
+    text-decoration: none;
+}
+
+.kuis-hasil-aksi a.btn-selanjutnya-kuis {
+    background-color: transparent;
+    border-color: #6E491C;
+    color: #6E491C;
+}
+
+.kuis-hasil-aksi a.btn-selanjutnya-kuis:hover,
+.kuis-hasil-aksi a.btn-selanjutnya-kuis:focus {
+    background-color: #6E491C;
+    border-color: #6E491C;
+    color: var(--putih);
+}
+
+/* HP: tiga kotak angka tetap sebaris, tombol bertumpuk selebar kartu */
+@media (max-width: 575.98px) {
+    .kuis-kotak.kuis-hasil { padding: 2rem 1rem; }
+    .kuis-hasil-judul { font-size: 1.6rem; }
+
+    .kuis-statistik {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+    }
+    .kuis-statistik-item { padding: 0.75rem 0.25rem; }
+    .kuis-statistik-nilai { font-size: 2rem; }
+
+    .kuis-hasil-aksi { flex-direction: column; }
+    .kuis-hasil-aksi .btn-selanjutnya-kuis { width: 100%; }
+}
+
+/* ===== Pop up konfirmasi selesai kuis ===== */
+.modal-konfirmasi .modal-dialog { max-width: 380px; }
+
+.modal-konfirmasi .modal-content {
+    border: 2px solid #6E491C;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-konfirmasi .modal-body {
+    padding: 22px 22px 18px;
+    text-align: center;
+}
+
+.modal-konfirmasi .konfirmasi-teks {
+    margin: 0 0 18px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #2b1d0e;
+}
+
+.modal-konfirmasi .konfirmasi-aksi {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.modal-konfirmasi .btn-konfirmasi-ya,
+.modal-konfirmasi .btn-konfirmasi-batal {
+    min-width: 110px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-konfirmasi .btn-konfirmasi-ya {
+    background-color: #6E491C;
+    border: 1px solid #6E491C;
+    color: #fff;
+}
+.modal-konfirmasi .btn-konfirmasi-ya:hover {
+    background-color: #583a16;
+    border-color: #583a16;
+}
+
+.modal-konfirmasi .btn-konfirmasi-batal {
+    background-color: #fff;
+    border: 1px solid #6E491C;
+    color: #6E491C;
+}
+.modal-konfirmasi .btn-konfirmasi-batal:hover {
+    background-color: #F3EBDD;
+}
+
+
+/* #####################################################################
+ * 11. ANGGAH-UNGGUHING BASA (materi)
+ * Dipakai di: materi/index.blade.php
+ * ##################################################################### */
+.materi-title {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.materi-subtitle {
+    margin-bottom: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Kotak dasar (dipakai sidebar dan isi) */
+.materi-box {
+    background-color: var(--user-persik);
+    border: 1px solid var(--garis-detail);
+    border-radius: 8px;
+}
+
+/* ---------- Sidebar ---------- */
+.materi-sidebar {
+    background-color: #fdeed6;
+    padding: 0.9rem;
+    position: sticky;      /* ikut menempel saat halaman digulir */
+    top: 1rem;
+}
+
+.materi-sidebar-header {
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--garis-detail-tipis);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.materi-menu {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.materi-menu > li {
+    margin-bottom: 0.2rem;
+}
+
+.materi-menu a {
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    color: var(--teks);
+    font-size: 0.85rem;
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.materi-menu a:hover {
+    background-color: rgba(110, 73, 28, 0.1);
+    color: var(--nav-coklat);
+}
+
+/* Judul kelompok (Kruna Alus / Kruna Nenten Alus): label kecil, tanpa garis bawah */
+.materi-sub-title {
+    margin-top: 0.6rem;
+}
+
+.materi-sub-title a {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--coklat);
+}
+
+/* Daftar di bawah kelompok: menjorok dengan garis penuntun tipis di kiri */
+.materi-sub-menu {
+    list-style: none;
+    margin: 0 0 0.3rem 0.75rem;
+    padding-left: 0;
+    border-left: 1px solid var(--garis-detail-tipis);
+}
+
+/* Materi yang sedang dibuka (harus di bawah aturan :hover agar menang) */
+.materi-menu a.menu-active {
+    background-color: var(--nav-coklat);   /* #6E491C */
+    color: var(--putih);
+    font-weight: 700;
+}
+
+/* ---------- Isi materi ---------- */
+.materi-content {
+    padding: 1.25rem 1.6rem;
+}
+
+.materi-content h3 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--garis-detail-tipis);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.materi-content h3 em {
+    font-weight: 400;
+}
+
+.materi-content p {
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+    text-align: justify;   /* rata kiri-kanan, seperti semula */
+}
+
+.materi-content ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Tombol Sebelumnya / Selanjutnya di dasar isi materi */
+.materi-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--garis-detail-tipis);
+}
+
+/* Di layar kecil sidebar tidak menempel */
+@media (max-width: 767.98px) {
+    .materi-sidebar {
+        position: static;
+    }
+}
+
+/* ---------- Tabel contoh pada halaman materi ---------- */
+.tabel-materi-judul {
+    text-align: center;
+    font-weight: 700;
+    margin: 1.25rem 0 0.6rem;
+}
+
+.tabel-materi-bungkus {
+    overflow-x: auto;
+    border: 1px solid var(--garis-detail);
+    border-radius: 8px;
+}
+
+.tabel-materi {
+    width: 100%;
+    min-width: 460px;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+/* Baris judul kolom: cokelat muda (tan) */
+.tabel-materi th {
+    padding: 0.6rem 0.75rem;
+    background-color: #e9cda3;
+    color: var(--teks);
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tabel-materi th.sorot {
+    background-color: var(--nav-coklat);   /* #6E491C */
+    color: var(--putih);
+}
+
+/* Sel isi: krem hangat, bukan putih */
+.tabel-materi td {
+    padding: 0.5rem 0.75rem;
+    background-color: #fbebd0;
+    text-align: center;
+    vertical-align: middle;
+    border-top: 1px solid var(--garis-detail-tipis);
+}
+
+/* Garis pembatas tegak antarkolom */
+.tabel-materi th,
+.tabel-materi td {
+    border-right: 1px solid var(--garis-detail);
+}
+
+/* Kolom terakhir tidak perlu garis kanan, sudah ada garis luar dari pembungkus */
+.tabel-materi th:last-child,
+.tabel-materi td:last-child {
+    border-right: 0;
+}
+
+/* Baris genap: sedikit lebih gelap (belang) */
+.tabel-materi tbody tr:nth-child(even) td {
+    background-color: #f8deb4;
+}
+
+.tabel-materi .kolom-no {
+    width: 56px;
+}
+
+.tabel-materi-bungkus {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 576px) {
+    .tabel-materi {
+        min-width: 0;            /* tidak lagi memaksa tabel lebih lebar dari layar */
+        table-layout: auto;
+        font-size: 0.78rem;
+    }
+
+    .tabel-materi th,
+    .tabel-materi td {
+        padding: 0.4rem 0.3rem;
+        word-break: break-word;
+    }
+
+    .tabel-materi th {
+        white-space: normal;     /* judul kolom boleh turun baris */
+        line-height: 1.2;
+    }
+
+    .tabel-materi .kolom-no {
+        width: 28px;
+        padding-left: 0.15rem;
+        padding-right: 0.15rem;
+    }
+}
+
+
+/* #####################################################################
+ * 12. TENTANG
+ * Dipakai di: tentang/penulis.blade.php (Tentang Penulis)
+ *             tentang/aplikasi.blade.php (Tentang Aplikasi)
+ *             kamus/huruf.blade.php (hanya .ta-wrap, .ta-card, .ta-eyebrow,
+ *                                    .ta-title, .ta-desc)
+ * Prefix "ta-" dipakai bersama oleh halaman-halaman di atas.
+ * ##################################################################### */
+
+.ta-wrap {
+    --ta-bg: #fdf0dc;
+    --ta-card: #fff7ea;
+    --ta-ink: #2e1d0e;
+    --ta-muted: #7a6048;
+    --ta-brown: #7a4a14;
+    --ta-brown-2: #a8691f;
+    --ta-line: #e4cfa8;
+    --ta-gold: #c8962e;
+    --ta-gutter: 1px;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 24px var(--ta-gutter) 60px;
+    color: var(--ta-ink);
+}
+
+.ta-card {
+    background: var(--ta-bg);
+    border: 1px solid var(--ta-line);
+    border-radius: 16px;
+    padding: 28px;
+}
+
+.ta-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    margin: 0 0 18px;
+    color: var(--ta-ink);
+}
+
+.ta-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.4rem;
+    color: var(--ta-ink);
+    margin: 32px 0 14px;
+}
+
+.ta-desc {
+    margin: 0;
+    line-height: 1.8;
+    text-align: justify;
+    hyphens: auto;
+}
+
+/* ---------- Tabel data singkat (dipakai penulis & pengembang) ---------- */
+.ta-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.ta-table th,
+.ta-table td {
+    padding: 8px 0;
+    vertical-align: top;
+    border-top: 1px solid var(--ta-line);
+}
+
+.ta-table th {
+    width: 110px;
+    font-weight: 600;
+    color: var(--ta-muted);
+    padding-right: 10px;
+}
+
+.ta-table a {
+    color: var(--ta-brown);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    overflow-wrap: anywhere;
+}
+
+.ta-table a:hover,
+.ta-table a:focus-visible {
+    color: var(--ta-brown-2);
+}
+
+/* ---------- Kartu kotak (panduan & buku sumber data) ---------- */
+.ta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.ta-box {
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.ta-box-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.ta-box-head h3 {
+    font-size: 1rem;
+    line-height: 1.35;
+    margin: 0;
+}
+
+.ta-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 8px;
+    color: #fff7ea;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.ta-icon-brown { background: var(--ta-brown); }
+.ta-icon-gold  { background: var(--ta-brown); }
+
+/* ---------- Daftar langkah (panduan) ---------- */
+.ta-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    line-height: 1.75;
+}
+
+.ta-list > li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.ta-list > li:last-child {
+    margin-bottom: 0;
+}
+
+.ta-sublist {
+    margin: 6px 0 0;
+    padding: 8px 12px 8px 1.6rem;
+    background: var(--ta-bg);
+    border-left: 3px solid var(--ta-gold);
+    border-radius: 0 8px 8px 0;
+    list-style-type: lower-alpha;
+}
+
+.ta-sublist li {
+    margin-bottom: 4px;
+}
+
+.ta-sublist li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- Sampul buku ---------- */
+.ta-cover-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.ta-cover {
+    width: calc(50% - 6px);
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--ta-line);
+    box-shadow: 0 2px 8px rgba(46, 29, 14, 0.15);
+}
+
+/* ---------- Halaman penulis: profil dua kolom ---------- */
+.ta-profil {
+    display: grid;
+    grid-template-columns: 370px 1fr;   /* sebelumnya 280px */
+    gap: 24px;
+    align-items: start;
+}
+
+.ta-side {
+    position: sticky;
+    top: 16px;
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+
+.ta-foto-penulis {
+    width: 170px;
+    height: 215px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 12px;
+    border: 1px solid var(--ta-line);
+    display: block;
+    margin: 0 auto 14px;
+}
+
+.ta-nama {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    line-height: 1.35;
+    margin: 0 0 1px;
+    color: var(--ta-ink);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.ta-dev-info h3 {
+    font-family: var(--ta-font-sans, system-ui, -apple-system, 'Segoe UI', sans-serif);
+}
+
+.ta-jabatan {
+    font-size: 0.8rem;
+    color: var(--ta-muted);
+    margin: 0 0 14px;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.ta-side .ta-table {
+    font-size: 0.85rem;
+}
+
+.ta-side .ta-table th {
+    width: 82px;
+}
+
+.ta-uraian {
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+.ta-sec {
+    padding-left: 16px;
+    border-left: 3px solid var(--ta-brown-2);
+    margin-bottom: 24px;
+}
+
+.ta-sec:last-child {
+    margin-bottom: 0;
+}
+
+.ta-sec h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem;
+    color: var(--ta-brown);
+    margin: 0 0 8px;
+    font-weight: bold;
+}
+
+.ta-sec p {
+    margin: 0 0 8px;
+    line-height: 1.8;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.ta-sec p:last-child {
+    margin-bottom: 0;
+}
+
+.ta-hl {
+    font-weight: 700;
+    background: linear-gradient(transparent 60%, rgba(200, 150, 46, 0.45) 60%);
+}
+
+/* Layar lebar: nama dan jabatan satu baris. Di HP dibiarkan turun baris agar tidak meluber. */
+@media (min-width: 861px) {
+    .ta-nama,
+    .ta-jabatan {
+        white-space: nowrap;
+    }
+}
+
+/* ---------- Halaman aplikasi: pengembang ---------- */
+.ta-dev {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    background: var(--ta-card);
+    border: 1px solid var(--ta-line);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.ta-dev-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ta-dev-info h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    margin: 0 0 10px;
+    color: var(--ta-ink);
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 860px) {
+    .ta-profil {
+        grid-template-columns: 1fr;
+    }
+
+    .ta-side {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    .ta-card { padding: 16px; }
+    .ta-title { font-size: 1.6rem; }
+    .ta-heading { font-size: 1.25rem; }
+    .ta-grid { grid-template-columns: 1fr; }
+    .ta-uraian { padding: 16px; }
+    .ta-desc,
+    .ta-sec p { text-align: left; }
+
+    .ta-dev {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .ta-dev-info { width: 100%; }
+    .ta-dev-info .ta-table { text-align: left; }
+}
+
+
+/* #####################################################################
+ * 13. SISA BERANDA LAMA
+ * Dulu dipakai di: kamus/beranda.blade.php (hero rata tengah)
+ * Beranda sekarang memakai bagian 6, jadi class .hero-* di bawah ini
+ * kemungkinan tidak terpakai lagi. Cari "hero-kamus", "hero-kicker",
+ * "hero-judul", dan "hero-sub" di resources/views; kalau tidak ada,
+ * seluruh bagian 13 ini aman dihapus.
+ * ##################################################################### */
+.hero-kamus {
+    padding: 6rem 0 5rem;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.hero-kicker {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-judul {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+}

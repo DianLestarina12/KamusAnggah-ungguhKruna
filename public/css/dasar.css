@@ -1,0 +1,252 @@
+/* #####################################################################
+ * dasar.css  —  DIPAKAI SEMUA HALAMAN (pengguna DAN admin)
+ *
+ *  1. Variabel warna
+ *  2. Dasar halaman
+ *  3. Navbar + dropdown Tentang
+ * 14. Nomor halaman (dipakai admin dan pengguna)
+ *
+ * Muat file ini PERTAMA, sebelum admin.css atau user.css.
+ * Penomoran bagian mengikuti style.css lama supaya mudah dicocokkan.
+ * ##################################################################### */
+
+
+/* #####################################################################
+ * 1. VARIABEL WARNA
+ * Dipakai di: SEMUA halaman
+ * ##################################################################### */
+:root {
+    --coklat: #6b4423;
+    --coklat-tua: #47290f;
+    --coklat-muda: #a9784f;
+    --oranye: #ff7a1a;
+    --oranye-tua: #e85d04;
+    --putih: #ffffff;
+    --krem: #fff8f1;
+    --teks: #3b2a1f;
+
+    /* Warna navbar (satu sumber untuk semua halaman) */
+    --nav-coklat: #6E491C;
+    --nav-coklat-hover: #523614;
+
+    --user-coklat: #6b4a1f;
+    --user-coklat-tua: #4f3514;
+    --user-oranye: #ffad4d;
+    --user-krem: #e0d9cc;
+    --user-persik: #fde6c3;
+    --user-persik-tua: #fbd9a3;
+    --user-taupe: #b8a88a;
+    --garis-detail: rgba(107, 68, 35, 0.45);
+    --garis-detail-tipis: rgba(107, 68, 35, 0.3);
+}
+
+
+/* #####################################################################
+ * 2. DASAR HALAMAN
+ * Dipakai di: SEMUA halaman
+ * ##################################################################### */
+body {
+    color: var(--teks);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+html, body {
+    overflow-x: clip;
+}
+
+
+/* #####################################################################
+ * 3. NAVBAR
+ * Dipakai di: layouts/app.blade.php (satu desain untuk halaman user DAN admin)
+ * Semua selector di-scope ke .navbar-kamus supaya tidak bocor ke
+ * komponen lain dan tidak perlu !important.
+ * ##################################################################### */
+.navbar-kamus {
+    background-color: var(--putih);
+    border-top: 1px solid var(--nav-coklat);
+    border-bottom: 1px solid var(--nav-coklat);
+    min-height: 70px;          /* min-height, bukan height: menu mobile tidak terpotong */
+    padding: 0.5rem 0;
+}
+
+.navbar-kamus .brand-kamus {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--nav-coklat);
+}
+
+.navbar-kamus .navbar-nav {
+    gap: 20px;
+}
+
+.navbar-kamus .navbar-nav .nav-link {
+    padding: 0;
+    color: var(--nav-coklat);
+    font-size: 14.5px;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.navbar-kamus .navbar-nav .nav-link.active {
+    color: var(--nav-coklat);
+    font-weight: 700;
+}
+
+/* Garis vertikal pembatas */
+.navbar-kamus .nav-separator {
+    display: inline-block;
+    height: 18px;
+    margin: 0 5px;
+    border-left: 1.5px solid var(--nav-coklat);
+}
+
+/* Tombol Masuk & Keluar */
+.navbar-kamus .btn-masuk,
+.navbar-kamus .btn-keluar {
+    margin-left: 20px;
+    padding: 7px 22px;
+    background-color: var(--nav-coklat);
+    border: none;
+    border-radius: 4px;
+    color: var(--putih);
+    font-size: 14.5px;
+    font-weight: 600;
+}
+
+.navbar-kamus .btn-masuk:hover,
+.navbar-kamus .btn-keluar:hover {
+    background-color: var(--nav-coklat-hover);
+    color: var(--putih);
+}
+
+@media (max-width: 991.98px) {
+    .navbar-kamus .navbar-nav {
+        gap: 0.6rem;
+        padding-top: 0.75rem;
+    }
+
+    .navbar-kamus .btn-masuk,
+    .navbar-kamus .btn-keluar {
+        margin: 0.5rem 0 0.75rem;
+    }
+}
+
+/* ---------------------------------------------------------------------
+ * 3b. Dropdown "Tentang" di navbar
+ * Menu terbuka saat kursor diarahkan (desktop); di HP tetap bisa diklik.
+ * --------------------------------------------------------------------- */
+@media (min-width: 992px) {
+    .navbar-kamus .dropdown-hover:hover > .dropdown-menu {
+        display: block;
+        margin-top: 0;          /* tanpa celah, supaya menu tidak menutup saat kursor turun */
+    }
+}
+
+.navbar-kamus .dropdown-menu {
+    min-width: 11rem;
+    padding: 0.35rem 0;
+    border: 1px solid var(--garis-detail);
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14.5px;
+}
+
+.navbar-kamus .dropdown-item {
+    padding: 0.5rem 1rem;
+    color: var(--nav-coklat);
+}
+
+.navbar-kamus .dropdown-item:hover,
+.navbar-kamus .dropdown-item:focus,
+.navbar-kamus .dropdown-item.active {
+    background-color: var(--nav-coklat);
+    color: var(--putih);
+}
+
+
+/* #####################################################################
+ * 14. NOMOR HALAMAN (semua halaman bertabel atau berdaftar)
+ * Dipakai di: partials/paginasi.blade.php, yang di-include oleh
+ *             kata/index (admin), kuis/soal/index (admin), dan kamus/huruf (pengguna).
+ * Aturan: "Sebelumnya" tidak ada di halaman pertama, "Selanjutnya" tidak ada
+ * di halaman terakhir (diatur di Blade, bukan di CSS).
+ * ##################################################################### */
+.paginasi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+}
+
+/* Tanpa keterangan (daftar huruf): nomor halaman di tengah */
+.paginasi.paginasi-tengah {
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.paginasi-info {
+    font-size: 0.85rem;
+    color: #5A4630;
+}
+
+.paginasi-daftar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.paginasi-item {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #D9C7A5;
+    border-radius: 6px;
+    background-color: var(--putih);
+    color: var(--nav-coklat);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a.paginasi-item:hover { background-color: #F7F0E1; }
+
+.paginasi-item.aktif {
+    background-color: var(--nav-coklat);
+    border-color: var(--nav-coklat);
+    color: var(--putih);
+}
+
+/* Titik tiga: bukan tombol */
+.paginasi-item.mati {
+    color: #B8A88A;
+    pointer-events: none;
+}
+
+/* HP: keterangan dan nomor halaman rata tengah, tombol sedikit lebih besar */
+@media (max-width: 575.98px) {
+    .paginasi { flex-direction: column; justify-content: center; text-align: center; }
+    .paginasi-daftar { justify-content: center; }
+    .paginasi-item { min-width: 38px; height: 38px; }
+}
