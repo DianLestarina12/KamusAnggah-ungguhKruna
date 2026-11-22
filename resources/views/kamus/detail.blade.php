@@ -17,7 +17,6 @@
         <x-cari-kata placeholder="Cari Kata Lainnya" />
     </div>
 
-    {{-- ===== Tabel tingkatan bahasa ===== --}}
     <div class="tabel-anggah">
         <div class="tabel-anggah-kepala">
             <span>Tingkatan Bahasa</span>
@@ -25,7 +24,6 @@
         </div>
  
         @foreach (\App\Models\Katas::tingkatanKeys() as $kolom)
-            {{-- [UBAH 2] tambah class tingkat-{{ $loop->iteration }} --}}
             <div class="tabel-anggah-baris tingkat-{{ $loop->iteration }} {{ $kolom === $tingkatan ? 'aktif' : '' }}">
                 <span class="tabel-anggah-label">{{ \App\Models\Katas::tingkatanLabel($kolom, true) }}</span>
                 @php($adaBentuk = \App\Models\Katas::adaBentuk($kata->{$kolom}))
@@ -35,29 +33,25 @@
             </div>
         @endforeach
  
-        {{-- [UBAH 3] tambah class tingkat-indonesia --}}
         <div class="tabel-anggah-baris tingkat-indonesia">
             <span class="tabel-anggah-label">Bahasa Indonesia</span>
             <span class="tabel-anggah-nilai">{{ $kata->bahasa_indonesia }}</span>
         </div>
     </div>
-    {{-- ===== akhir tabel tingkatan bahasa ===== --}}
 
-    {{-- ===== Sinonim dan Homonim (terpisah dari tabel di atas) ===== --}}
+
     <div class="kotak-relasi-grup">
         <div class="kotak-relasi">
             <h2 class="kotak-relasi-judul">Sinonim</h2>
 
             @forelse ($sinonim as $terkait)
                 @php($tingkatanTerkait = $tingkatan && \App\Models\Katas::adaBentuk($terkait->{$tingkatan}) ? $tingkatan : null)
-                {{-- [UBAH 4a] variabel baru untuk keterangan tingkatan --}}
                 @php($tingkatanTampil = $tingkatanTerkait ?? $terkait->tingkatanUtama())
 
                 <a class="kotak-relasi-baris" href="{{ route('kamus.detail', ['kata' => $terkait, 'tingkatan' => $tingkatanTerkait] + $konteks) }}">
                     <span class="kotak-relasi-kata">
                         {{ $terkait->bentukUtama($tingkatanTerkait) }}
 
-                        {{-- [UBAH 4b] keterangan tingkatan, sama seperti Homonim --}}
                         @if ($tingkatanTampil)
                             <small class="kotak-relasi-tingkatan">{{ \App\Models\Katas::tingkatanLabel($tingkatanTampil) }}</small>
                         @endif
@@ -85,9 +79,7 @@
             @endforelse
         </div>
     </div>
-        {{-- ===== akhir Sinonim dan Homonim ===== --}}
 
-        {{-- [UBAH 5] tombol Sebelumnya/Selanjutnya, hilang jika tidak ada tujuan sama sekali --}}
         @if ($sebelumnya || $berikutnya)
             <div class="detail-kaki">
         @if ($sebelumnya)

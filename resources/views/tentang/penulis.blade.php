@@ -2,7 +2,6 @@
 
 @section('content')
 @php
-    // Daftar buku sumber data. Untuk menambah buku, cukup tambahkan satu blok di sini.
     $buku = [
         [
             'judul'    => 'Kamus Anggah-Ungguhing Basa Bali',
@@ -18,7 +17,6 @@
         ],
     ];
 
-    // Daftar buku yang sudah ditulis. Untuk menambah judul, cukup tambahkan satu baris di sini.
     $karya = [
         'Widia Sari, Paket Bahasa Bali SLTA (1, 2, 3)',
         'Mustika Sari, Paket Bahasa Bali SD (1, 2, 3, 4, 5, 6)',
@@ -43,7 +41,6 @@
         <h1 class="ta-title">Tentang Penulis Kamus</h1>
 
         <div class="ta-profil">
-            {{-- Kolom kiri: foto dan data singkat --}}
             <aside class="ta-side">
                 <img src="{{ asset('images/Foto-Prof-Suwija.jpeg') }}"
                      alt="Prof. Dr. Drs. I Nyoman Suwija"
@@ -68,7 +65,6 @@
                 </table>
             </aside>
 
-            {{-- Kolom kanan: uraian dalam bentuk paragraf --}}
             <div class="ta-uraian">
                 <section class="ta-sec">
                     <h3>Riwayat Pendidikan</h3>
@@ -93,7 +89,6 @@
             </div>
         </div>
 
-        {{-- Buku sumber data --}}
         <h2 class="ta-heading">Buku Sumber Data</h2>
         <div class="ta-grid">
             @foreach ($buku as $item)

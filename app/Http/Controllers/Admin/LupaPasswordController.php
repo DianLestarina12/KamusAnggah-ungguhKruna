@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Password;
 
 class LupaPasswordController extends Controller
 {
-    // Tampilkan form input email
     public function formEmail()
     {
         return view('admin.lupa_password');
     }
 
-    // Kirim tautan reset ke email
     public function kirimTautan(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -34,7 +32,6 @@ class LupaPasswordController extends Controller
         ]);
     }
 
-    // Tampilkan form kata sandi baru
     public function formReset(Request $request, string $token)
     {
         return view('admin.reset_password', [
@@ -43,7 +40,6 @@ class LupaPasswordController extends Controller
         ]);
     }
 
-    // Simpan kata sandi baru
     public function reset(Request $request)
     {
         $request->validate([

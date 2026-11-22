@@ -18,8 +18,6 @@
         'materi.kesimpulan',
     ];
 
-    // Jika nama rute tidak ada di daftar (mis. halaman index yang menampilkan
-    // Latar Belakang sebagai default), anggap halaman pertama.
     $posisi = array_search(request()->route()->getName(), $urutanMateri, true);
     $aktif = $urutanMateri[$posisi === false ? 0 : $posisi];
 @endphp
@@ -32,7 +30,6 @@
 
     <div class="row align-items-stretch">
 
-        <!-- KOLOM KIRI: Pilihan Materi -->
         <div class="col-lg-3 col-md-4 mb-4">
             <div class="materi-box materi-sidebar">
                 <div class="materi-sidebar-header">Pilihan Materi</div>
@@ -41,12 +38,10 @@
                         <a href="{{ route('materi.latar_belakang') }}" class="{{ $aktif === 'materi.latar_belakang' ? 'menu-active' : '' }}">Latar Belakang</a>
                     </li>
 
-                    <!-- Rute Identifikasi belum ada, dikosongkan sementara -->
                     <li>
                         <a href="#">Identifikasi Anggah-Ungguh Kruna Basa Bali</a>
                     </li>
 
-                    <!-- Kelompok Kruna Alus -->
                     <li>
                         <div class="materi-sub-title">
                             <a href="{{ route('materi.kruna_alus') }}" class="{{ $aktif === 'materi.kruna_alus' ? 'menu-active' : '' }}">Kruna Alus</a>
@@ -59,7 +54,6 @@
                         </ul>
                     </li>
 
-                    <!-- Kelompok Kruna Nenten Alus -->
                     <li>
                         <div class="materi-sub-title">
                             <a href="{{ route('materi.kruna_nenten_alus') }}" class="{{ $aktif === 'materi.kruna_nenten_alus' ? 'menu-active' : '' }}">Kruna Nenten Alus</a>
@@ -78,12 +72,9 @@
             </div>
         </div>
 
-        <!-- KOLOM KANAN: Isi Materi Dinamis -->
         <div class="col-lg-9 col-md-8 mb-4">
             <div class="materi-box materi-content">
 
-                {{-- Jika halaman materi lain mengisi section 'isi_materi', tampilkan itu.
-                     Jika tidak ada, tampilkan Latar Belakang sebagai default. --}}
                 @hasSection('isi_materi')
                     @yield('isi_materi')
                 @else
@@ -118,9 +109,9 @@
                     </p>
                 @endif
 
-            </div> {{-- akhir materi-box materi-content --}}
-        </div> {{-- akhir kolom kanan --}}
+            </div>
+        </div> 
 
-    </div> {{-- akhir row --}}
-</div> {{-- akhir mt-4 mb-5 --}}
+    </div> 
+</div>
 @endsection

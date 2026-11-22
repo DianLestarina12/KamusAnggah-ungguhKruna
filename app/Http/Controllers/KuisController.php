@@ -10,16 +10,13 @@ class KuisController extends Controller
 {
     public const JUMLAH_SOAL = 10;
 
-    // Kolom opsi pada tabel soals; jawaban benar selalu sama dengan salah satunya.
     private const KUNCI_OPSI = ['opsi1', 'opsi2', 'opsi3', 'opsi4'];
 
-    // Pembuka: ajakan mengerjakan kuis.
     public function index()
     {
         return view('kuis.index');
     }
 
-    // Menyusun soal acak dan menyimpan kunci jawabannya di session, bukan di halaman.
     public function mulai()
     {
         $soal = $this->buatSoal();
@@ -45,7 +42,6 @@ class KuisController extends Controller
         return view('kuis.soal', compact('soal'));
     }
 
-    // Menilai jawaban di server lalu redirect (PRG) agar refresh tidak mengirim ulang form.
     public function selesai(Request $request)
     {
         $soal = session('kuis');

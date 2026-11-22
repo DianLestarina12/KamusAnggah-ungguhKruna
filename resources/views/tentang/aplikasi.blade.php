@@ -2,7 +2,6 @@
 
 @section('content')
 @php
-    // Data pengembang. Ubah di sini jika ada perubahan.
     $dev = [
         'nama'    => 'Ni Putu Dian Lestarina Putri',
         'prodi'   => 'Informatika',
@@ -22,7 +21,6 @@
             Kuis untuk menguji penguasaan materi.
         </p>
 
-        {{-- Panduan --}}
         <h2 class="ta-heading">Panduan Aplikasi</h2>
         <div class="ta-grid">
             <article class="ta-box">
@@ -59,12 +57,14 @@
             </article>
         </div>
 
-        {{-- Pengembang --}}
         <h2 class="ta-heading">Pengembang Aplikasi</h2>
 
             <div class="ta-dev-info">
-                <h3>{{ $dev['nama'] }}</h3>
                 <table class="ta-table">
+                    <tr>
+                    <th>Nama</th>
+                    <td>{{ $dev['nama'] }}</td>
+                </tr>
                     <tr>
                         <th>Program Studi</th>
                         <td>{{ $dev['prodi'] }}</td>

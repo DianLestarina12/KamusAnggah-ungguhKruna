@@ -19,10 +19,6 @@
                 <div class="format-box mb-3">
                     <code>kruna_andap,kruna_asi,kruna_aso,kruna_ami,kruna_mider,kruna_kasar,bahasa_indonesia</code>
                 </div>
-                <p class="import-note">
-                    Kolom <code>kruna_andap</code> dan <code>bahasa_indonesia</code> wajib diisi,
-                    kolom lainnya boleh kosong. Kata yang sudah ada di kamus akan dilewati.
-                </p>
 
                 <form method="POST" action="{{ route('admin.kata.import') }}" enctype="multipart/form-data">
                     @csrf

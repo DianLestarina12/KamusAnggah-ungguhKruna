@@ -1,26 +1,3 @@
-/* #####################################################################
- * admin.css  —  KHUSUS HALAMAN ADMIN
- *
- *  4a. Tabel admin VERSI LAMA (.table-custom, .btn-edit)
- *  4b. Tabel admin (.tabel-admin) + sisa lama tombol tambah
- *  4e. Login admin (dua panel)
- *  4h. Lupa kata sandi (.kartu-lupa)
- *  4f. Kepala halaman admin (judul, pencarian, tombol)
- *  4g. Nomor halaman admin VERSI LAMA (.ad-paginasi)
- *  4i. Pop up hapus + perbaikan modal berformulir
- *  4j. Pop up Tambah dan Edit
- *  4k. Import CSV
- *
- * Butuh dasar.css (variabel warna --nav-coklat dkk.), jadi muat dasar.css dulu.
- * Penomoran bagian mengikuti style.css lama.
- * ##################################################################### */
-
-
-/* ---------------------------------------------------------------------
- * 4a. Tabel admin VERSI LAMA (.table-custom) dan tombol .btn-edit
- * Kemungkinan sudah digantikan .tabel-admin (4b). Cari "table-custom"
- * dan "btn-edit" di resources/views sebelum menghapusnya.
- * --------------------------------------------------------------------- */
 .table-custom {
     border-collapse: separate;
     border-spacing: 0;
@@ -32,9 +9,8 @@
     margin-top: 20px;
 }
 
-/* Tombol Edit pada tabel admin */
 .btn-edit {
-    background-color: var(--nav-coklat);    /* #6E491C */
+    background-color: var(--nav-coklat);
     border: 1px solid var(--nav-coklat);
     color: var(--putih);
     font-weight: 600;
@@ -42,7 +18,7 @@
 
 .btn-edit:hover,
 .btn-edit:focus {
-    background-color: var(--nav-coklat-hover);   /* #523614, sedikit lebih gelap */
+    background-color: var(--nav-coklat-hover);   
     border-color: var(--nav-coklat-hover);
     color: var(--putih);
 }
@@ -81,27 +57,22 @@
     background-color: #FFFFFF !important;
 }
 
-/* ---------------------------------------------------------------------
- * 4b. Tabel admin (dipakai Pengelolaan Kata & Pengelolaan Kuis)
- * Garis dilembutkan; Edit (cokelat) dan Hapus (merah) warnanya tidak berubah.
- * Di HP, tabel digeser ke samping di dalam pembungkusnya.
- * --------------------------------------------------------------------- */
 .tabel-admin-wrap {
     border: 1px solid #D9C7A5;
     border-radius: 12px;
-    overflow-x: auto;                      /* HP: geser ke samping, halaman tidak ikut melebar */
+    overflow-x: auto;                      
     -webkit-overflow-scrolling: touch;
     background: #fff;
 }
 
 .tabel-admin {
     width: 100%;
-    min-width: 760px;                      /* di bawah ini kolom tidak dipadatkan lagi, tabel digeser */
+    min-width: 760px;                      
     margin: 0;
     border-collapse: collapse;
 }
 
-.tabel-admin-lebar { min-width: 980px; }   /* tabel soal (teks panjang) */
+.tabel-admin-lebar { min-width: 980px; }   
 
 .tabel-admin thead th {
     padding: 13px 10px;
@@ -114,7 +85,6 @@
     vertical-align: middle;
 }
 
-/* Judul kolom yang bisa diurutkan (halaman kata) */
 .tabel-admin thead th a {
     color: inherit;
     text-decoration: none;
@@ -133,19 +103,16 @@
 
 .tabel-admin tbody tr:nth-child(even) td { background: #FDF7EC; }
 
-/* Garis luar sudah dibuat oleh pembungkus, jadi garis tepi sel dihapus */
 .tabel-admin tr > :first-child { border-left: 0; }
 .tabel-admin tr > :last-child { border-right: 0; }
 .tabel-admin thead tr th { border-top: 0; }
 .tabel-admin tbody tr:last-child td { border-bottom: 0; }
 
-/* Kolom soal dibuat rata kiri karena teksnya panjang */
 .tabel-admin td.kolom-soal {
     text-align: left;
     min-width: 280px;
 }
 
-/* Tombol aksi: berdampingan, bukan bertumpuk */
 .tabel-admin .aksi {
     display: flex;
     gap: 6px;
@@ -178,8 +145,6 @@
 }
 .btn-hapus-admin:hover { background: #b92c3a; color: #fff; }
 
-/* HP (di bawah 768px): setiap baris tabel menjadi satu kartu, tanpa geser samping.
-   Label kolom diambil dari atribut data-label pada <td> di view. */
 @media (max-width: 767.98px) {
     .tabel-admin-wrap {
         overflow: visible;
@@ -199,7 +164,6 @@
         width: 100%;
     }
 
-    /* Judul kolom disembunyikan secara visual, tetap terbaca pembaca layar */
     .tabel-admin thead {
         position: absolute;
         width: 1px;
@@ -228,7 +192,6 @@
         word-break: break-word;
     }
 
-    /* Label kolom di kiri, isi di kanan */
     .tabel-admin tbody td::before {
         content: attr(data-label);
         flex: none;
@@ -238,20 +201,17 @@
         color: #2E2012;
     }
 
-    /* Kolom kosong tidak perlu ditampilkan */
     .tabel-admin tbody td:empty { display: none; }
 
     .tabel-admin tbody tr:nth-child(even) td { background: transparent; }
     .tabel-admin tbody tr:last-child td { border-bottom: 1px solid #E4D8C0; }
     .tabel-admin tbody tr td:last-child { border-bottom: 0; }
 
-    /* Nomor: menjadi kepala kartu */
     .tabel-admin tbody tr td[data-label="No"] {
         background: #F0DDBB;
         font-weight: 700;
     }
 
-    /* Soal: teks panjang, label di atas isi */
     .tabel-admin td.kolom-soal {
         flex-direction: column;
         gap: 4px;
@@ -259,7 +219,6 @@
         text-align: left;
     }
 
-    /* Aksi: tanpa label, kedua tombol berbagi lebar */
     .tabel-admin td.kolom-aksi::before { display: none; }
     .tabel-admin td.kolom-aksi .aksi { width: 100%; }
     .btn-edit-admin,
@@ -269,9 +228,6 @@
     }
 }
 
-/* Sisa LAMA (tidak dipakai lagi oleh halaman admin yang baru):
-   .header-aksi-admin dan .btn-tambah-admin (tombol oranye). Aman dihapus setelah
-   mencari namanya di resources/views. */
 .header-aksi-admin {
     display: flex;
     justify-content: flex-end;
@@ -294,15 +250,6 @@
     color: white;
 }
 
-
-/* ---------------------------------------------------------------------
- * 4e. Login admin (login.blade.php): dua panel
- * Kiri = panel cokelat berisi nama kamus, kanan = formulir.
- * Di HP, panel tersusun ke bawah (cokelat di atas, formulir di bawah).
- * --------------------------------------------------------------------- */
-
-/* Melebar penuh: pembungkus <main class="container my-4"> dari layout dilepas,
-   hanya di halaman yang berisi .login-split */
 .container:has(> .login-split) {
     max-width: none;
     padding: 0 !important;
@@ -312,7 +259,7 @@
 
 .login-split {
     display: flex;
-    min-height: calc(100vh - 72px);        /* 72px = tinggi navbar */
+    min-height: calc(100vh - 72px); 
 }
 
 .login-merek {
@@ -372,7 +319,6 @@
     color: #2E2012;
 }
 
-/* Kolom isian. Ukuran huruf 16px supaya iPhone tidak memperbesar halaman saat kolom diketuk. */
 .login-input {
     display: block;
     width: 100%;
@@ -390,7 +336,6 @@
     background-color: var(--putih);
 }
 
-/* Kolom kata sandi dengan ikon mata di kanan */
 .login-sandi {
     position: relative;
     margin-top: 0.875rem;
@@ -402,7 +347,7 @@
     top: 50%;
     right: 0.35rem;
     transform: translateY(-50%);
-    min-width: 44px;                       /* area ketuk nyaman di HP */
+    min-width: 44px;                      
     min-height: 44px;
     border: 0;
     background: transparent;
@@ -456,9 +401,6 @@
     .login-judul { font-size: 1.75rem; }
 }
 
-/* ---------------------------------------------------------------------
- * 4h. Lupa kata sandi admin (.kartu-lupa) dan tautan "Kembali ke login"
- * --------------------------------------------------------------------- */
 .kartu-lupa {
     width: 100%;
     max-width: 420px;
@@ -477,7 +419,7 @@
 }
 
 .kartu-lupa .form-control {
-    font-size: 16px;      /* 16px mencegah iPhone melakukan zoom otomatis saat input diklik */
+    font-size: 16px;      
     padding: 10px 12px;
 }
 
@@ -488,20 +430,12 @@
     font-size: 1rem;
 }
 
-/* ===== Link "Kembali ke login" ===== */
 .link-kembali-login {
-    display: block;
-    margin-top: 14px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #6E491C !important;
-    text-decoration: none;
+    color: #6E491C;
 }
 
 .link-kembali-login:hover {
     color: #583a16;
-    text-decoration: none;
 }
 
 @media (max-width: 576px) {
@@ -511,10 +445,6 @@
     }
 }
 
-/* ---------------------------------------------------------------------
- * 4f. Kepala halaman admin (Pengelolaan Kata dan Pengelolaan Kuis)
- * Judul di kiri, pencarian dan tombol di kanan. Di HP tersusun ke bawah.
- * --------------------------------------------------------------------- */
 .ad-kepala {
     display: flex;
     justify-content: space-between;
@@ -547,7 +477,6 @@
     gap: 0.625rem;
 }
 
-/* Kotak pencarian */
 .ad-cari {
     display: flex;
     gap: 0.5rem;
@@ -584,7 +513,6 @@
     gap: 0.5rem;
 }
 
-/* Tombol: utama (cokelat), garis (berbingkai), lembut (krem keemasan) */
 .ad-btn {
     display: inline-flex;
     align-items: center;
@@ -640,16 +568,11 @@
 
     .ad-cari { width: 100%; }
     .ad-cari-kolom { flex: 1; min-width: 0; }
-    .ad-cari-kolom input { width: 100%; font-size: 1rem; }   /* 16px: iPhone tidak memperbesar halaman */
+    .ad-cari-kolom input { width: 100%; font-size: 1rem; }  
 
     .ad-baris-tombol .ad-btn { flex: 1; padding: 0.7rem 0.75rem; }
 }
 
-/* ---------------------------------------------------------------------
- * 4g. Nomor halaman tabel admin VERSI LAMA (partials/paginasi-admin.blade.php)
- * Kemungkinan sudah digantikan .paginasi di dasar.css (bagian 14).
- * Cari "ad-paginasi" di resources/views; kalau tidak ada, blok ini aman dihapus.
- * --------------------------------------------------------------------- */
 .ad-paginasi {
     display: flex;
     justify-content: space-between;
@@ -702,20 +625,12 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     pointer-events: none;
 }
 
-/* HP: keterangan dan nomor halaman rata tengah, tombol sedikit lebih besar */
 @media (max-width: 575.98px) {
     .ad-paginasi { flex-direction: column; justify-content: center; text-align: center; }
     .ad-paginasi-daftar { justify-content: center; }
     .ad-paginasi-item { min-width: 38px; height: 38px; }
 }
 
-
-/* ---------------------------------------------------------------------
- * 4i. Pop up hapus (kata dan soal) + perbaikan modal berformulir
- * --------------------------------------------------------------------- */
-
-/* Modal dengan form di dalam content: form harus ikut membatasi tinggi,
-   supaya hanya modal-body yang bisa digulir */
 .modal-dialog-scrollable .modal-content > form {
     display: flex;
     flex-direction: column;
@@ -732,7 +647,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     overflow-wrap: anywhere;
 }
 
-/* ===== Pop up konfirmasi hapus (kata dan soal) ===== */
 .modal-hapus .modal-content {
     border: none;
     border-radius: 14px;
@@ -774,7 +688,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     transition: background-color 0.15s ease, transform 0.05s ease;
 }
 
-/* Hapus: merah, di kiri */
 .modal-hapus .btn-hapus-ya {
     background-color: #c62828;
 }
@@ -782,7 +695,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     background-color: #a71f1f;
 }
 
-/* Batal: cokelat tema, di kanan */
 .modal-hapus .btn-hapus-batal {
     background-color: #6E491C;
 }
@@ -801,7 +713,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     outline-offset: 2px;
 }
 
-/* Perkecil kotak pop up hapus */
 .modal-hapus .modal-dialog {
     max-width: 380px;
 }
@@ -827,10 +738,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     font-size: 0.9rem;
 }
 
-
-/* ---------------------------------------------------------------------
- * 4j. Modal Tambah dan Edit (polos, border cokelat)
- * --------------------------------------------------------------------- */
 .modal-tambah-kata .modal-content {
     background-color: #FFFFFF;
     border: 2px solid #6E491C;
@@ -879,7 +786,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     gap: 8px;
 }
 
-/* Simpan: cokelat */
 .modal-tambah-kata .btn-simpan {
     background-color: #6E491C;
     border: 1px solid #6E491C;
@@ -894,7 +800,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     color: #fff;
 }
 
-/* Batal: merah */
 .modal-tambah-kata .btn-batal {
     background-color: #c62828;
     border: 1px solid #c62828;
@@ -909,10 +814,6 @@ a.ad-paginasi-item:hover { background-color: #F7F0E1; }
     color: #fff;
 }
 
-
-/* ---------------------------------------------------------------------
- * 4k. Import CSV (kata/import.blade.php)
- * --------------------------------------------------------------------- */
 .import-wrap { max-width: 760px; margin: 2rem auto; }
 
 .import-card {

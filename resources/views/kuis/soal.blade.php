@@ -35,7 +35,6 @@
         </form>
     </div>
 
-    {{-- Pop up konfirmasi selesai kuis --}}
     <div class="modal fade modal-konfirmasi" id="konfirmasi-selesai" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

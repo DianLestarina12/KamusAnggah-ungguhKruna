@@ -1,11 +1,6 @@
 @extends('template')
 @section('content')
     <div class="">
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        {{-- ===== Kepala halaman (style.css bagian 4f) ===== --}}
         <div class="ad-kepala">
             <div>
                 <p class="ad-label">PANEL ADMIN</p>
@@ -21,7 +16,6 @@
             </div>
         </div>
 
-        {{-- ===== Tabel soal (style.css bagian 4b) ===== --}}
         <div class="tabel-admin-wrap">
             <table class="tabel-admin tabel-admin-lebar">
                 <thead>
@@ -76,12 +70,9 @@
                 </tbody>
             </table>
         </div>
-
-        {{-- Nomor halaman berbahasa Indonesia (menggantikan {{ $soals->links() }}) --}}
         @include('partials.paginasi', ['halaman' => $soals, 'satuan' => 'soal'])
     </div>
 
-    <!-- Modal Edit Soal -->
 <div class="modal fade modal-tambah-kata" id="editSoalModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content p-2">
@@ -147,7 +138,6 @@
     </div>
 </div>
 
-<!-- ===== Modal Hapus Soal ===== -->
 <div class="modal fade modal-hapus" id="hapusSoalModal" tabindex="-1" aria-labelledby="hapusSoalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -186,7 +176,6 @@
     });
 </script>
 
-<!-- Modal Tambah Soal -->
 <div class="modal fade modal-tambah-kata" id="tambahSoalModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content p-2">
@@ -255,18 +244,16 @@
         const editEl   = document.getElementById('editSoalModal');
         const hapusEl  = document.getElementById('hapusSoalModal');
 
-        // Modal Tambah: kosongkan isian saat dibuka lewat tombol
         tambahEl.addEventListener('show.bs.modal', function (event) {
-            if (!event.relatedTarget) return; // dibuka otomatis setelah error: biarkan isian lama
+            if (!event.relatedTarget) return;
 
             tambahEl.querySelectorAll('input[type=text], textarea').forEach(el => el.value = '');
             tambahEl.querySelectorAll('.text-danger').forEach(el => el.remove());
         });
 
-        // Modal Edit: isi sesuai baris yang diklik
         editEl.addEventListener('show.bs.modal', function (event) {
             const tombol = event.relatedTarget;
-            if (!tombol) return; // dibuka otomatis setelah error: biarkan isian lama
+            if (!tombol) return;
 
             const d = tombol.dataset;
             document.getElementById('editSoalForm').action = d.action;
@@ -279,12 +266,10 @@
             document.getElementById('edit_jawaban').value  = d.jawaban || '';
         });
 
-        // Modal Hapus: arahkan form ke soal yang dipilih
         hapusEl.addEventListener('show.bs.modal', function (event) {
             document.getElementById('hapusSoalForm').action = event.relatedTarget.dataset.action;
         });
 
-        // Buka kembali modal yang tadi dikirim bila validasi gagal
         @if ($errors->any() && old('_tambah'))
             bootstrap.Modal.getOrCreateInstance(tambahEl).show();
         @elseif ($errors->any() && old('_edit_id'))

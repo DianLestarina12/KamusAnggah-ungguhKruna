@@ -1,13 +1,6 @@
 @extends('template')
 @section('content')
 
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-    </div>
-@endif
-
 {{-- ===== Kepala halaman: judul di kiri, pencarian dan tombol di kanan (style.css bagian 4f) ===== --}}
 <div class="ad-kepala">
     <div>
@@ -55,17 +48,7 @@
             <tr>
                 <th>No</th>
                 @foreach ($columns as $field => $label)
-                    @php
-                        $nextDirection = ($sort === $field && $direction === 'asc') ? 'desc' : 'asc';
-                    @endphp
-                    <th>
-                        <a href="{{ route('admin.kata.index', array_filter(['q' => $search, 'sort' => $field, 'direction' => $nextDirection])) }}">
-                            {{ $label }}
-                            @if ($sort === $field)
-                                {{ $direction === 'asc' ? '▲' : '▼' }}
-                            @endif
-                        </a>
-                    </th>
+                    <th>{{ $label }}</th>
                 @endforeach
                 <th>Aksi</th>
             </tr>

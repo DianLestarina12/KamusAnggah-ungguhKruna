@@ -22,7 +22,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
-            // 👇 Arahkan ke rute dashboard admin yang tepat
             return redirect()->intended('/admin/kata'); 
         }
 
@@ -31,7 +30,6 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    // 👇 Fungsi untuk keluar dari Dashboard
     public function logout(Request $request)
     {
         Auth::logout();

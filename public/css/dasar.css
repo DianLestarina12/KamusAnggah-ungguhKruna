@@ -1,20 +1,3 @@
-/* #####################################################################
- * dasar.css  —  DIPAKAI SEMUA HALAMAN (pengguna DAN admin)
- *
- *  1. Variabel warna
- *  2. Dasar halaman
- *  3. Navbar + dropdown Tentang
- * 14. Nomor halaman (dipakai admin dan pengguna)
- *
- * Muat file ini PERTAMA, sebelum admin.css atau user.css.
- * Penomoran bagian mengikuti style.css lama supaya mudah dicocokkan.
- * ##################################################################### */
-
-
-/* #####################################################################
- * 1. VARIABEL WARNA
- * Dipakai di: SEMUA halaman
- * ##################################################################### */
 :root {
     --coklat: #6b4423;
     --coklat-tua: #47290f;
@@ -40,11 +23,6 @@
     --garis-detail-tipis: rgba(107, 68, 35, 0.3);
 }
 
-
-/* #####################################################################
- * 2. DASAR HALAMAN
- * Dipakai di: SEMUA halaman
- * ##################################################################### */
 body {
     color: var(--teks);
     display: flex;
@@ -60,18 +38,11 @@ html, body {
     overflow-x: clip;
 }
 
-
-/* #####################################################################
- * 3. NAVBAR
- * Dipakai di: layouts/app.blade.php (satu desain untuk halaman user DAN admin)
- * Semua selector di-scope ke .navbar-kamus supaya tidak bocor ke
- * komponen lain dan tidak perlu !important.
- * ##################################################################### */
 .navbar-kamus {
     background-color: var(--putih);
     border-top: 1px solid var(--nav-coklat);
     border-bottom: 1px solid var(--nav-coklat);
-    min-height: 70px;          /* min-height, bukan height: menu mobile tidak terpotong */
+    min-height: 70px;        
     padding: 0.5rem 0;
 }
 
@@ -106,7 +77,6 @@ html, body {
     font-weight: 700;
 }
 
-/* Garis vertikal pembatas */
 .navbar-kamus .nav-separator {
     display: inline-block;
     height: 18px;
@@ -114,7 +84,6 @@ html, body {
     border-left: 1.5px solid var(--nav-coklat);
 }
 
-/* Tombol Masuk & Keluar */
 .navbar-kamus .btn-masuk,
 .navbar-kamus .btn-keluar {
     margin-left: 20px;
@@ -145,14 +114,10 @@ html, body {
     }
 }
 
-/* ---------------------------------------------------------------------
- * 3b. Dropdown "Tentang" di navbar
- * Menu terbuka saat kursor diarahkan (desktop); di HP tetap bisa diklik.
- * --------------------------------------------------------------------- */
 @media (min-width: 992px) {
     .navbar-kamus .dropdown-hover:hover > .dropdown-menu {
         display: block;
-        margin-top: 0;          /* tanpa celah, supaya menu tidak menutup saat kursor turun */
+        margin-top: 0;         
     }
 }
 
@@ -177,14 +142,6 @@ html, body {
     color: var(--putih);
 }
 
-
-/* #####################################################################
- * 14. NOMOR HALAMAN (semua halaman bertabel atau berdaftar)
- * Dipakai di: partials/paginasi.blade.php, yang di-include oleh
- *             kata/index (admin), kuis/soal/index (admin), dan kamus/huruf (pengguna).
- * Aturan: "Sebelumnya" tidak ada di halaman pertama, "Selanjutnya" tidak ada
- * di halaman terakhir (diatur di Blade, bukan di CSS).
- * ##################################################################### */
 .paginasi {
     display: flex;
     justify-content: space-between;
@@ -194,7 +151,6 @@ html, body {
     margin-top: 1.1rem;
 }
 
-/* Tanpa keterangan (daftar huruf): nomor halaman di tengah */
 .paginasi.paginasi-tengah {
     justify-content: center;
     margin-top: 1.5rem;
@@ -238,13 +194,11 @@ a.paginasi-item:hover { background-color: #F7F0E1; }
     color: var(--putih);
 }
 
-/* Titik tiga: bukan tombol */
 .paginasi-item.mati {
     color: #B8A88A;
     pointer-events: none;
 }
 
-/* HP: keterangan dan nomor halaman rata tengah, tombol sedikit lebih besar */
 @media (max-width: 575.98px) {
     .paginasi { flex-direction: column; justify-content: center; text-align: center; }
     .paginasi-daftar { justify-content: center; }

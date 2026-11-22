@@ -5,7 +5,6 @@
 @section('content')
     <div class="kuis-wrap">
         <section class="ta-card kuis-intro">
-            {{-- Pesan peringatan dari controller (misalnya soal belum tersedia) --}}
             @if (session('error'))
                 <div class="alert alert-warning">{{ session('error') }}</div>
             @endif
@@ -17,7 +16,6 @@
                 Tapi sebelum itu harus mempelajari materi Anggah-ungguhing Basa.
             </p>
 
-            {{-- Kuis dimulai lewat POST, jadi @csrf wajib ada --}}
             <form method="POST" action="{{ route('kuis.mulai') }}">
                 @csrf
                 <button type="submit" class="kuis-intro-btn">Mulai Kuis</button>

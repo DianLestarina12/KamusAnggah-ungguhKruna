@@ -31,8 +31,6 @@ Route::prefix('kuis')->name('kuis.')->group(function () {
 });
 
 
-// ===== Halaman yang WAJIB LOGIN =====
-// /admin dan /add/kuis dipindah ke sini (sebelumnya bisa dibuka tanpa login).
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', function () {
         return view('template');
@@ -47,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/soal/{id}', [SoalController::class, 'update'])->name('soal.update');
     Route::delete('/soal/{id}', [SoalController::class, 'destroy'])->name('soal.destroy');
 
-    // /jawaban dipindah ke sini (sebelumnya bisa dibuka dan diisi tanpa login).
+
     Route::get('/jawaban', [JawabanController::class, 'index'])->name('jawaban.index');
     Route::get('/jawaban/create', [JawabanController::class, 'create'])->name('jawaban.create');
     Route::post('/jawaban', [JawabanController::class, 'store'])->name('jawaban.store');

@@ -21,8 +21,7 @@ class SoalController extends Controller
         Soals::create($this->validasi($request));
 
         return redirect()->route('soal.index')
-                        ->with('success','Soal created successfully.');
-                        
+                        ->with('success', 'Soal berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -37,7 +36,7 @@ class SoalController extends Controller
         $soal->update($this->validasi($request));
 
         return redirect()->route('soal.index')
-                        ->with('success','Soal updated successfully.');
+                        ->with('success', 'Soal berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -46,10 +45,9 @@ class SoalController extends Controller
         $soal->delete();
 
         return redirect()->route('soal.index')
-                        ->with('success','Soal deleted successfully.');
+                        ->with('success', 'Soal berhasil dihapus.');  
     }
 
-    // Jawaban harus salah satu dari keempat opsi, supaya kunci jawaban selalu ada di pilihan.
     private function validasi(Request $request): array
     {
         return $request->validate([
