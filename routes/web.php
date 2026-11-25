@@ -60,7 +60,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/kata/{id}/edit', [KataController::class, 'edit'])->name('kata.edit');
     Route::put('/kata/{id}', [KataController::class, 'update'])->name('kata.update');
     Route::delete('/kata/{id}', [KataController::class, 'destroy'])->name('kata.destroy');
-    // Route kata/{kata}/relasi dihapus: KataRelasiController tidak dipakai lagi.
     Route::get('/add/kuis', [SoalController::class, 'index'])->name('add-kuis');
 });
 
